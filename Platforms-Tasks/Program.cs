@@ -9,6 +9,7 @@ namespace Platforms_Tasks
 	{
 		static void Main(string[] args)
 		{
+			Console.WriteLine("Hello worlds");
 		}
 	}
 }
