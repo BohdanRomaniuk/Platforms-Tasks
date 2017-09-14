@@ -1,0 +1,61 @@
+﻿<?xml version="1.0"?>
+<ArrayOfFigure xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Figure xsi:type="Circle">
+    <Center>
+      <X>4</X>
+      <Y>5</Y>
+    </Center>
+    <Radius>5</Radius>
+  </Figure>
+  <Figure xsi:type="Square">
+    <LeftTop>
+      <X>-10</X>
+      <Y>-3</Y>
+    </LeftTop>
+    <RightBottom>
+      <X>-5</X>
+      <Y>-13</Y>
+    </RightBottom>
+  </Figure>
+  <Figure xsi:type="Circle">
+    <Center>
+      <X>-6</X>
+      <Y>-15</Y>
+    </Center>
+    <Radius>5</Radius>
+  </Figure>
+  <Figure xsi:type="Circle">
+    <Center>
+      <X>-4</X>
+      <Y>-15</Y>
+    </Center>
+    <Radius>10</Radius>
+  </Figure>
+  <Figure xsi:type="Square">
+    <LeftTop>
+      <X>7</X>
+      <Y>23</Y>
+    </LeftTop>
+    <RightBottom>
+      <X>15</X>
+      <Y>3</Y>
+    </RightBottom>
+  </Figure>
+  <Figure xsi:type="Square">
+    <LeftTop>
+      <X>3</X>
+      <Y>14</Y>
+    </LeftTop>
+    <RightBottom>
+      <X>7</X>
+      <Y>5</Y>
+    </RightBottom>
+  </Figure>
+  <Figure xsi:type="Circle">
+    <Center>
+      <X>8</X>
+      <Y>1</Y>
+    </Center>
+    <Radius>10</Radius>
+  </Figure>
+</ArrayOfFigure>
