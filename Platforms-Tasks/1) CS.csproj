@@ -40,8 +40,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Circle.cs" />
+    <Compile Include="Figure.cs" />
+    <Compile Include="Interfaces.cs" />
+    <Compile Include="Point.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Square.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="File1.xml" />
+    <Content Include="File2.xml" />
+    <Content Include="Input.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
