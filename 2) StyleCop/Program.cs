@@ -64,39 +64,39 @@ namespace LNU.AMI33.Task_1
 			Teacher[] teachersClone = new Teacher[teachers.Length];
 			teachersClone = (Teacher[])teachers.Clone();
 			file.WriteLine("TEACHERS::::");
-			foreach (var i in teachersClone)
+			foreach (var teacher in teachersClone)
 			{
-				if (i != null)
+				if (teacher != null)
 				{
-					i.Print(file);
+					teacher.Print(file);
 				}
 			}
 
 			file.WriteLine("\nSTUDENTS::::");
-			foreach (var i in studentsClone)
+			foreach (var teacher in studentsClone)
 			{
-				if (i != null)
+				if (teacher != null)
 				{
-					i.Print(file);
+					teacher.Print(file);
 				}
 			}
 
 			file.Close();
 
 			////3
-			List<Person> all = new List<Person>();
-			foreach (var i in teachersClone)
+			List<Person> allPersons = new List<Person>();
+			foreach (var teacher in teachersClone)
 			{
-				all.Add(i);
+				allPersons.Add(teacher);
 			}
 
-			foreach (var i in studentsClone)
+			foreach (var student in studentsClone)
 			{
-				all.Add(i);
+				allPersons.Add(student);
 			}
 
-            int teachersCount = all.Count(x => x is Teacher);
-			int studentsCount = all.Count(x => x is Student);
+            int teachersCount = allPersons.Count(x => x is Teacher);
+			int studentsCount = allPersons.Count(x => x is Student);
 			Console.WriteLine("Teachers Count: {0}\nStudents Count: {1}", teachersCount, studentsCount);
 			Console.ReadKey();
 		}
@@ -229,7 +229,7 @@ namespace LNU.AMI33.Task_1
 		/// <param name="_file">Using for writing to file</param>
 		public void Print(StreamWriter _file)
 		{
-			_file.Write(this.ToString());
+			_file.Write(ToString());
 		}
 
 		/// <summary>
@@ -289,7 +289,7 @@ namespace LNU.AMI33.Task_1
 		/// <param name="file">Using for writing to file</param>
 		public void Print(StreamWriter file)
 		{
-			file.Write(this.ToString());
+			file.Write(ToString());
 		}
 
 		/// <summary>
