@@ -21,8 +21,8 @@ namespace LNU.AMI33.Task_1
 			}
 
 			StreamWriter file = new StreamWriter("../../output.txt");
-			var selectTeachers = from t in students
-								 select t.Curator;
+			var selectTeachers = (from t in students
+								 select t.Curator).Distinct();
 
 			Teacher[] teachers = new Teacher[selectTeachers.LongCount()];
 			List<Teacher> teach = teachers.ToList();
@@ -118,6 +118,11 @@ namespace LNU.AMI33.Task_1
 			{
 				id = value;
 			}
+		}
+
+		public override bool Equals(object obj)
+		{
+			return name == (obj as Person).name && age == (obj as Person).age;
 		}
 
 		public override int GetHashCode()
