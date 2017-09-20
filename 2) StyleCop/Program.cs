@@ -36,7 +36,6 @@ namespace LNU.AMI33.Task_1
 						studList.Add(students[i]);
 					}
 				}
-
 				teach.Add(new Teacher(elem, studList));
 			}
 
@@ -51,17 +50,12 @@ namespace LNU.AMI33.Task_1
 				idNum++;
 			}
 
-			////foreach (var i in teachers)
-			////{
-			////    if(i!=null)
-			////    i.Print(file);
-			////}
-
 			////2
 			Student[] studentsClone = new Student[students.Length];
 			studentsClone = (Student[])students.Clone();
 			Teacher[] teachersClone = new Teacher[teachers.Length];
 			teachersClone = (Teacher[])teachers.Clone();
+			file.WriteLine("TEACHERS::::");
 			foreach (var i in teachersClone)
 			{
 				if (i != null)
@@ -69,7 +63,7 @@ namespace LNU.AMI33.Task_1
 					i.Print(file);
 				}
 			}
-
+			file.WriteLine("\nSTUDENTS::::");
 			foreach (var i in studentsClone)
 			{
 				if (i != null)
@@ -77,8 +71,21 @@ namespace LNU.AMI33.Task_1
 					i.Print(file);
 				}
 			}
-
 			file.Close();
+
+			//3
+			List<Person> all = new List<Person>();
+			foreach (var i in teachersClone)
+			{
+				all.Add(i);
+			}
+			foreach (var i in studentsClone)
+			{
+				all.Add(i);
+			}
+            int teachersCount = all.Count(x => x is Teacher);
+			int studentsCount = all.Count(x => x is Student);
+			Console.WriteLine("Teachers Count: {0}\nStudents Count: {1}", teachersCount, studentsCount);
 			Console.ReadKey();
 		}
 	}
@@ -183,7 +190,7 @@ namespace LNU.AMI33.Task_1
 		public override string ToString()
 		{
 			string teacher;
-			teacher = base.ToString() + "\n";
+			teacher = base.ToString() + "-----\n";
 			foreach (var i in students)
 			{
 				teacher += "\n" + i.ToString();
