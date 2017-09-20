@@ -103,8 +103,14 @@ namespace LNU.AMI33.Task_1
 
 		public int Id
 		{
-			get { return id; }
-			set { id = value; }
+			get
+			{
+				return id;
+			}
+			set
+			{
+				id = value;
+			}
 		}
 
 		public override int GetHashCode()
@@ -183,7 +189,7 @@ namespace LNU.AMI33.Task_1
 				teacher += "\n" + i.ToString();
 			}
 
-			return base.ToString();
+			return teacher;
 		}
 
 		public override bool Equals(object obj)
