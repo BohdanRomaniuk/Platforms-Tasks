@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<ArrayOfSquare xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Square>
+    <LeftTop>
+      <X>7</X>
+      <Y>8</Y>
+    </LeftTop>
+    <RightBottom>
+      <X>10</X>
+      <Y>4</Y>
+    </RightBottom>
+  </Square>
+  <Square>
+    <LeftTop>
+      <X>11</X>
+      <Y>3</Y>
+    </LeftTop>
+  </Square>
+  <Square>
+    <LeftTop>
+      <X>23</X>
+      <Y>7</Y>
+    </LeftTop>
+  </Square>
+</ArrayOfSquare>

@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<ArrayOfCircle xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Circle>
+    <Center>
+      <X>5</X>
+      <Y>6</Y>
+    </Center>
+    <Radius>1</Radius>
+  </Circle>
+  <Circle>
+    <Center>
+      <X>7</X>
+      <Y>8</Y>
+    </Center>
+    <Radius>9</Radius>
+  </Circle>
+</ArrayOfCircle>

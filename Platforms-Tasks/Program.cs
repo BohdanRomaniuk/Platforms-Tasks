@@ -29,8 +29,8 @@ namespace LNU.AMI33.Rommaniuk.Variant1
 		}
 		static void Main(string[] args)
 		{
-			try
-			{
+			//try
+			//{
 				List<Figure> dataFromFile = new List<Figure>();
 				string inputFileName = "../../Input.xml";
 				if (!File.Exists(inputFileName))
@@ -41,7 +41,7 @@ namespace LNU.AMI33.Rommaniuk.Variant1
 				{
 					throw new FileLoadException(String.Format("File {0} is empty!", inputFileName.Replace("../../", String.Empty)));
 				}
-				dataFromFile = ReadFiguresFromFile(inputFileName);
+				dataFromFile = ReadFiguresFromFile("../../INSINDAS.XML");
 				Console.WriteLine((dataFromFile.Count != 0) ? "Succesfully deserialized from file!" : "Nothing readed from file");
 				dataFromFile.Sort((fig1, fig2) => fig1.CalculateSquare().CompareTo(fig2.CalculateSquare()));
 				string sortedOutputFileName = "../../File1.xml";
@@ -55,7 +55,7 @@ namespace LNU.AMI33.Rommaniuk.Variant1
 				string thirdQuarterElemsOutputFileName = "../../File2.xml";
 				WriteFiguresToFile(figuresInThirdQuarter as List<Figure>, thirdQuarterElemsOutputFileName);
 				Console.WriteLine((new FileInfo(thirdQuarterElemsOutputFileName).Length == 0) ? "Error while writing to File2.xml" : "Sorted by perimitr in third quarter list writen to File2.xml");
-			}
+			/*}
 			catch (FileNotFoundException fileMissingException)
 			{
 				Console.WriteLine("File missing! {0}", fileMissingException.Message);
@@ -71,7 +71,7 @@ namespace LNU.AMI33.Rommaniuk.Variant1
 			finally
 			{
 				Console.ReadKey();
-			}
+			}*/
 		}
 	}
 }
