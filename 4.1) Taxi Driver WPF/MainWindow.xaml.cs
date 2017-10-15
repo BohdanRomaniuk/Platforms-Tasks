@@ -22,6 +22,20 @@ namespace _4._1__Taxi_Driver_WPF
 		public MainWindow()
 		{
 			InitializeComponent();
+			orders.Items.Add(new TaxiOrder { UserName = "Bohdan", PhoneNumber="+380968159669", Dispatch="Городоцька", Destination="Шевченка", Time=190});
 		}
+
+		private void startWork_Click(object sender, RoutedEventArgs e)
+		{
+
+		}
+	}
+	class TaxiOrder
+	{
+		public string UserName { get; set; }
+		public string PhoneNumber { get; set; }
+		public string Dispatch { get; set; }
+		public string Destination { get; set; }
+		public uint Time { get; set; }
 	}
 }
