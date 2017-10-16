@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Taxi_Driver_WPF.DataTypes;
 
 namespace _4._1__Taxi_Driver_WPF
 {
@@ -19,6 +20,7 @@ namespace _4._1__Taxi_Driver_WPF
 	/// </summary>
 	public partial class MainWindow : Window
 	{
+		private TaxiDriver currentDriver;
 		public MainWindow()
 		{
 			InitializeComponent();
@@ -27,6 +29,17 @@ namespace _4._1__Taxi_Driver_WPF
 		}
 
 		private void startWork_Click(object sender, RoutedEventArgs e)
+		{
+			currentDriver = new TaxiDriver("Паробій", "Роман", 19, "ВС5674АС", 5, 50);
+			driverInfoSurnameNameDetails.Content = currentDriver.Surname +" "+ currentDriver.Name;
+			driverInfoAgeDetails.Content = currentDriver.Age;
+			driverInfoCarDetails.Content = currentDriver.CarNumber;
+			driverInfoExpDetails.Content = currentDriver.Experience;
+			driverInfoCostDetails.Content = currentDriver.PayCheck;
+			driverInfoCostPerMinDetails.Content = currentDriver.CostPerMinute;
+        }
+
+		private void endOfWork_Click(object sender, RoutedEventArgs e)
 		{
 
 		}
@@ -37,6 +50,8 @@ namespace _4._1__Taxi_Driver_WPF
 			if (item != null)
 			{
 				MessageBox.Show((item as TaxiOrder).UserName);
+				OrderWindow wind = new OrderWindow();
+				wind.Show();
 			}
 		}
 	}

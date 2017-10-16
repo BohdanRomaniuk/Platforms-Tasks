@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:_4._1__Taxi_Driver_WPF"
         mc:Ignorable="d"
-        Title="Водій Таксі" Height="419.737" Width="644.737" Icon="taxi-icon.ico">
+        Title="Водій Таксі" Height="419.737" Width="664.737" Icon="taxi-icon.ico">
     <Grid Margin="10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
@@ -34,10 +34,11 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <Label x:Name="driverUsernameLabel" Content="Прізвище водія: " Grid.Row="0" Grid.Column="0"/>
-                    <TextBox x:Name="driverUsername" TextWrapping="Wrap" Height="23" Text="Прізвище" Grid.Row="0" Grid.Column="1" />
+                    <TextBox x:Name="driverUsername" TextWrapping="Wrap" Height="23" Text="" Grid.Row="0" Grid.Column="1" />
                     <Label x:Name="driverName" Content="Імя водія: " Grid.Row="1" Grid.Column="0"/>
-                    <TextBox x:Name="textBox" TextWrapping="Wrap" Height="23" Text="Імя" Grid.Row="1" Grid.Column="1"/>
-                    <Button x:Name="startWork" Content="Розпочати роботу" Grid.Row="2" Grid.Column="1" Click="startWork_Click"/>
+                    <TextBox x:Name="textBox" TextWrapping="Wrap" Height="23" Text="" Grid.Row="1" Grid.Column="1"/>
+                    <Button x:Name="endOfWork" Content="Завершити зміну" Grid.Row="2" Grid.Column="0" Margin="5" Click="endOfWork_Click"/>
+                    <Button x:Name="startWork" Content="Почати зміну" Grid.Row="2" Grid.Column="1" Margin="5" Click="startWork_Click"/>
                 </Grid>
             </GroupBox>
             <GroupBox x:Name="groupBox1" Header="Інформаційна панель" Grid.Row="0" Grid.Column="1" Margin="5,0,0,10">
@@ -61,9 +62,9 @@
                     <Label x:Name="driverInfoCarDetails" Content="(номер)" Grid.Row="1" Grid.Column="1"/>
                     <Label x:Name="driverInfoExp" Content="Стаж: " Grid.Row="1" Grid.Column="2"/>
                     <Label x:Name="driverInfoExpDetails" Content="(--) років" Grid.Row="1" Grid.Column="3"/>
-                    <Label x:Name="driverInfoCost" Content="Виручка: " Grid.Row="2" Grid.Column="0" Background="White" Foreground="#FF00B92A"/>
-                    <Label x:Name="driverInfoCostDetails" Content="0 грн" Grid.Row="2" Grid.Column="1"/>
-                    <Label x:Name="driverInfoCostPerMin" Content="грн/хв: " Grid.Row="2" Grid.Column="2" Foreground="#FFCBA600"/>
+                    <Label x:Name="driverInfoCost" Content="Виручка: " Grid.Row="2" Grid.Column="0" Foreground="Green" FontWeight="Bold"/>
+                    <Label x:Name="driverInfoCostDetails" Content="0 грн" Grid.Row="2" Grid.Column="1" Foreground="Green" FontWeight="Bold"/>
+                    <Label x:Name="driverInfoCostPerMin" Content="грн/хв: " Grid.Row="2" Grid.Column="2" Foreground="Orange"/>
                     <Label x:Name="driverInfoCostPerMinDetails" Content="0" Grid.Row="2" Grid.Column="3"/>
                 </Grid>
             </GroupBox>
