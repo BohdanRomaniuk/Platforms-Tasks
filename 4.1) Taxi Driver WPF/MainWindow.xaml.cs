@@ -23,11 +23,21 @@ namespace _4._1__Taxi_Driver_WPF
 		{
 			InitializeComponent();
 			orders.Items.Add(new TaxiOrder { UserName = "Bohdan", PhoneNumber="+380968159669", Dispatch="Городоцька", Destination="Шевченка", Time=190});
+			orders.Items.Add(new TaxiOrder { UserName = "Modest", PhoneNumber = "+380968159669", Dispatch = "Городоцька", Destination = "Шевченка", Time = 190 });
 		}
 
 		private void startWork_Click(object sender, RoutedEventArgs e)
 		{
 
+		}
+
+		private void orders_Click(object sender, RoutedEventArgs e)
+		{
+			var item = (sender as ListView).SelectedItem;
+			if (item != null)
+			{
+				MessageBox.Show((item as TaxiOrder).UserName);
+			}
 		}
 	}
 	class TaxiOrder

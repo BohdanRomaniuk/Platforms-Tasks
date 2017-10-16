@@ -41,7 +41,31 @@
                 </Grid>
             </GroupBox>
             <GroupBox x:Name="groupBox1" Header="Інформаційна панель" Grid.Row="0" Grid.Column="1" Margin="5,0,0,10">
-
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Label x:Name="driverInfoSurnameName" Content="Водій: " Grid.Row="0" Grid.Column="0"/>
+                    <Label x:Name="driverInfoSurnameNameDetails" Content="(інформація відсутня)" Grid.Row="0" Grid.Column="1"/>
+                    <Label x:Name="driverInfoAge" Content="Вік: " Grid.Row="0" Grid.Column="2"/>
+                    <Label x:Name="driverInfoAgeDetails" Content="(--)" Grid.Row="0" Grid.Column="3"/>
+                    <Label x:Name="driverInfoCar" Content="Авто: " Grid.Row="1" Grid.Column="0"/>
+                    <Label x:Name="driverInfoCarDetails" Content="(номер)" Grid.Row="1" Grid.Column="1"/>
+                    <Label x:Name="driverInfoExp" Content="Стаж: " Grid.Row="1" Grid.Column="2"/>
+                    <Label x:Name="driverInfoExpDetails" Content="(--) років" Grid.Row="1" Grid.Column="3"/>
+                    <Label x:Name="driverInfoCost" Content="Виручка: " Grid.Row="2" Grid.Column="0" Background="White" Foreground="#FF00B92A"/>
+                    <Label x:Name="driverInfoCostDetails" Content="0 грн" Grid.Row="2" Grid.Column="1"/>
+                    <Label x:Name="driverInfoCostPerMin" Content="грн/хв: " Grid.Row="2" Grid.Column="2" Foreground="#FFCBA600"/>
+                    <Label x:Name="driverInfoCostPerMinDetails" Content="0" Grid.Row="2" Grid.Column="3"/>
+                </Grid>
             </GroupBox>
         </Grid>
         <GroupBox x:Name="groupBox2" Header="Замовлення" Grid.Row="1" Grid.Column="0" Margin="0,0,0,10">
@@ -60,7 +84,7 @@
                     <Border Grid.Column="3" Name="dummywidth4"></Border>
                     <Border Grid.Column="5" Name="dummywidth5"></Border>
                 </Grid>
-                <ListView x:Name="orders" HorizontalAlignment="Left" Margin="0,0,0,0">
+                <ListView x:Name="orders" HorizontalAlignment="Left" Margin="0,0,0,0" PreviewMouseLeftButtonUp="orders_Click">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="Ім'я клієнта" Width="{Binding ElementName=dummywidth1, Path=ActualWidth}" DisplayMemberBinding="{Binding UserName}" />
