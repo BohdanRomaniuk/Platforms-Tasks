@@ -22,38 +22,39 @@ namespace _4._1__Taxi_Driver_WPF
 	public partial class MainWindow : Window
 	{
 		private TaxiDriver currentDriver;
-		private List<TaxiClient> allClients;
-		private List<TaxiDriver> allDrivers;
-		private List<TaxiOrder> allOrders;
+		private ClientsDB clientsInfo;
+        private DriversDB driversInfo;
+        private OrdersDB ordersInfo;
 		public MainWindow()
 		{
 			InitializeComponent();
-			ClientsDB clientsDB = new ClientsDB();
-			clientsDB.ReadFromFile("../../InputData/ClientsData.txt");
-			allClients = clientsDB.AllClients;
+			clientsInfo = new ClientsDB("../../InputData/ClientsData.txt");
+			clientsInfo.ReadFromFile();
 
-			DriversDB driversDB = new DriversDB();
-			driversDB.ReadFromFile("../../InputData/DriversData.txt");
-			allDrivers = driversDB.AllDrivers;
+			driversInfo = new DriversDB("../../InputData/DriversData.txt");
+			driversInfo.ReadFromFile();
 
-			OrdersDB ordersDB = new OrdersDB();
-			ordersDB.ReadFromFile("../../InputData/OrdersData.txt");
-			allOrders = ordersDB.AllOrders;
-
-			//orders.Items.Add(new TaxiOrder { UserName = "Bohdan", PhoneNumber="+380968159669", Dispatch="Городоцька", Destination="Шевченка", Time=190});
-			//orders.Items.Add(new TaxiOrder { UserName = "Modest", PhoneNumber = "+380968159669", Dispatch = "Городоцька", Destination = "Шевченка", Time = 190 });
+			//orders.Items.Add(new TaxiOrder1 { UserName = "Bohdan", PhoneNumber="+380968159669", Dispatch="Городоцька", Destination="Шевченка", Time=190});
+			//orders.Items.Add(new TaxiOrder1 { UserName = "Modest", PhoneNumber = "+380968159669", Dispatch = "Городоцька", Destination = "Шевченка", Time = 190 });
 		}
 
 		private void startWork_Click(object sender, RoutedEventArgs e)
 		{
-			//currentDriver = new TaxiDriver("Паробій", "Роман", 19, "ВС5674АС", 5, 50);
+			currentDriver = driversInfo.FindDriver(driverSurName.Text, driverUserName.Text);
 			driverInfoSurnameNameDetails.Content = currentDriver.Surname +" "+ currentDriver.Name;
 			driverInfoAgeDetails.Content = currentDriver.Age;
 			driverInfoCarDetails.Content = currentDriver.CarNumber;
 			driverInfoExpDetails.Content = currentDriver.Experience;
 			driverInfoCostDetails.Content = currentDriver.PayCheck;
 			driverInfoCostPerMinDetails.Content = currentDriver.CostPerMinute;
-        }
+
+			ordersInfo = new OrdersDB("../../InputData/OrdersData.txt", clientsInfo, driversInfo, currentDriver);
+			ordersInfo.ReadFromFile();
+			foreach(TaxiOrder order in ordersInfo.AllOrders)
+			{
+
+			}
+		}
 
 		private void endOfWork_Click(object sender, RoutedEventArgs e)
 		{
@@ -65,13 +66,13 @@ namespace _4._1__Taxi_Driver_WPF
 			var item = (sender as ListView).SelectedItem;
 			if (item != null)
 			{
-				MessageBox.Show((item as TaxiOrder).UserName);
+				MessageBox.Show((item as TaxiOrder1).UserName);
 				OrderWindow wind = new OrderWindow();
 				wind.Show();
 			}
 		}
 	}
-	class TaxiOrder
+	class TaxiOrder1
 	{
 		public string UserName { get; set; }
 		public string PhoneNumber { get; set; }

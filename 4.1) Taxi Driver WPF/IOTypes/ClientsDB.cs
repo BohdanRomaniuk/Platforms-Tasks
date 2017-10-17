@@ -9,6 +9,7 @@ namespace Taxi_Driver_WPF.IOTypes
 {
 	class ClientsDB
 	{
+		private string fileName;
 		private List<TaxiClient> allClients;
 		public List<TaxiClient> AllClients
 		{
@@ -16,13 +17,22 @@ namespace Taxi_Driver_WPF.IOTypes
 			{
 				return allClients;
 			}
+			set
+			{
+				if(value.Count==0)
+				{
+					throw new ArgumentOutOfRangeException("ClientsDB is empty");
+				}
+				allClients = value;
+			}
 		}
-		public ClientsDB()
+		public ClientsDB(string _fileName)
 		{
 			allClients = new List<TaxiClient>();
+			fileName = _fileName;
 		}
 
-		public void ReadFromFile(string fileName)
+		public void ReadFromFile()
 		{
 			string[] allLines = File.ReadAllLines(fileName);
 			foreach(string line in allLines)
@@ -32,7 +42,7 @@ namespace Taxi_Driver_WPF.IOTypes
 			}
 		}
 
-		public void WriteToFile(string fileName)
+		public void WriteToFile()
 		{
 			using (StreamWriter writer = new StreamWriter(fileName))
 			{
@@ -41,6 +51,20 @@ namespace Taxi_Driver_WPF.IOTypes
 					writer.WriteLine(client);
 				}
 			}
+		}
+
+		public TaxiClient GetClientById(uint clientId)
+		{
+			TaxiClient searchResult = new TaxiClient();
+			foreach(TaxiClient client in allClients)
+			{
+				if(client.Id==clientId)
+				{
+					searchResult = client;
+					break;
+				}
+			}
+			return searchResult;
 		}
 	}
 }

@@ -9,6 +9,7 @@ namespace Taxi_Driver_WPF.IOTypes
 {
 	class DriversDB
 	{
+		private string fileName;
 		private List<TaxiDriver> allDrivers;
 		public List<TaxiDriver> AllDrivers
 		{
@@ -16,13 +17,22 @@ namespace Taxi_Driver_WPF.IOTypes
 			{
 				return allDrivers;
 			}
+			set
+			{
+				if(value.Count==0)
+				{
+					throw new ArgumentOutOfRangeException("DriversDB is empty");
+				}
+				allDrivers = value;
+			}
 		}
-		public DriversDB()
+		public DriversDB(string _fileName)
 		{
 			allDrivers = new List<TaxiDriver>();
+			fileName = _fileName;
 		}
 
-		public void ReadFromFile(string fileName)
+		public void ReadFromFile()
 		{
 			string[] allLines = File.ReadAllLines(fileName);
 			foreach (string line in allLines)
@@ -32,7 +42,7 @@ namespace Taxi_Driver_WPF.IOTypes
 			}
 		}
 
-		public void WriteToFile(string fileName)
+		public void WriteToFile()
 		{
 			using (StreamWriter writer = new StreamWriter(fileName))
 			{
@@ -57,19 +67,18 @@ namespace Taxi_Driver_WPF.IOTypes
 			return searchResult;
 		}
 
-		public bool UpdateDriverInfo(string surname, string name, TaxiDriver newInfo)
+		public TaxiDriver GetDriverById(uint driverId)
 		{
-			bool updatedSuccesfully = false;
-			foreach (TaxiDriver driver in allDrivers)
+			TaxiDriver searchResult = new TaxiDriver();
+			foreach(TaxiDriver driver in allDrivers)
 			{
-				if (driver.Surname == surname && driver.Name == name)
+				if(driver.Id==driverId)
 				{
-					//driver = newInfo;
-					updatedSuccesfully = true;
+					searchResult = driver;
 					break;
 				}
 			}
-			return updatedSuccesfully;
+			return searchResult;
 		}
 	}
 }
