@@ -7,8 +7,24 @@ namespace Taxi_Driver_WPF.DataTypes
 {
 	class TaxiClient
 	{
+		private uint id;
 		private string name;
 		private string phoneNumber;
+		public uint Id
+		{
+			get
+			{
+				return id;
+			}
+			set
+			{
+				if(value<0)
+				{
+					throw new ArgumentOutOfRangeException("Client Id cant be < than 0");
+				}
+				id = value;
+			}
+		}
 		public string Name
 		{
 			get
@@ -42,14 +58,15 @@ namespace Taxi_Driver_WPF.DataTypes
 		public TaxiClient()
 		{
 		}
-		public TaxiClient(string _name, string _phoneNumber)
+		public TaxiClient(uint _id, string _name, string _phoneNumber)
 		{
+			Id = _id;
 			Name = _name;
 			PhoneNumber = _phoneNumber;
 		}
 		public override string ToString()
 		{
-			return String.Format("Name: {0,-10} Phone Number: {1}", Name, PhoneNumber);
+			return String.Format("{0} {1} {2}", Id, Name, PhoneNumber);
 		}
 	}
 }

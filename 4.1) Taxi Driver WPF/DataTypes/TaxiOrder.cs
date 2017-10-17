@@ -133,5 +133,9 @@ namespace Taxi_Driver_WPF.DataTypes
 			Cost = _cost;
 			IsDone = _isDone;
 		}
+		public override string ToString()
+		{
+			return String.Format("{0} {1} {2} {3} {4} {5} {6} {7}", Client.Id, Driver.Id, ArriveTime, Dispatch, Destination, RoadTime, Cost, IsDone);
+		}
 	}
 }

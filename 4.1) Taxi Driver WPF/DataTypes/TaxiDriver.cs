@@ -7,6 +7,7 @@ namespace Taxi_Driver_WPF.DataTypes
 {
 	class TaxiDriver
 	{
+		private uint id;
 		private string surname;
 		private string name;
 		private uint age;
@@ -14,6 +15,21 @@ namespace Taxi_Driver_WPF.DataTypes
 		private uint experience;
 		private uint costPerMinute;
 		private double payCheck;
+		public uint Id
+		{
+			get
+			{
+				return id;
+			}
+			set
+			{
+				if(value<0)
+				{
+					throw new ArgumentOutOfRangeException("Driver id cant be < 0");
+				}
+				id = value;
+			}
+		}
 		public string Surname
 		{
 			get
@@ -123,31 +139,20 @@ namespace Taxi_Driver_WPF.DataTypes
 		{
 			PayCheck = 0;
 		}
-		public TaxiDriver(string _surname, string _name, uint _age, string _carNumber, uint _experience, uint _cost)
+		public TaxiDriver(uint _id, string _surname, string _name, uint _age, string _carNumber, uint _experience, uint _cost, double _pay=0)
 		{
+			Id = _id;
 			Surname = _surname;
 			Name = _name;
 			Age = _age;
 			CarNumber = _carNumber;
 			Experience = _experience;
 			CostPerMinute = _cost;
-			PayCheck = 0;
-		}
-		public static TaxiDriver findDriver(List<TaxiDriver> allDrivers, string _surname, string _name)
-		{
-			TaxiDriver searchResult = new TaxiDriver();
-			foreach(TaxiDriver driver in allDrivers)
-			{
-				if (driver.Surname == _surname && driver.Name == _name)
-				{
-					searchResult = driver;
-				}
-			}
-			return searchResult;
+			PayCheck = _pay;
 		}
 		public override string ToString()
 		{
-			return String.Format("Surname: {0,-10} Name: {1,-10} Age: {2,-10} Exp: {3,-10}", Surname, Name, Age, Experience);
+			return String.Format("{0} {1} {2} {3} {4} {5} {6} {7}", Id, Surname, Name, Age, CarNumber, Experience, CostPerMinute, PayCheck);
 		}
 	}
 }

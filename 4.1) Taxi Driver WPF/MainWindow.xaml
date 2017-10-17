@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:_4._1__Taxi_Driver_WPF"
         mc:Ignorable="d"
-        Title="Водій Таксі" Height="419.737" Width="664.737" Icon="taxi-icon.ico">
+        Title="Водій Таксі" Height="420" Width="730" Icon="taxi-icon.ico">
     <Grid Margin="10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
@@ -77,13 +77,15 @@
                         <ColumnDefinition Width="0.15*"></ColumnDefinition>
                         <ColumnDefinition Width="0.2*"></ColumnDefinition>
                         <ColumnDefinition Width="0.2*"></ColumnDefinition>
-                        <ColumnDefinition Width="0.2*"></ColumnDefinition>
+                        <ColumnDefinition Width="0.15*"></ColumnDefinition>
+                        <ColumnDefinition Width="0.15*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <Border Grid.Column="0" Name="dummywidth1"></Border>
                     <Border Grid.Column="1" Name="dummywidth2"></Border>
                     <Border Grid.Column="2" Name="dummywidth3"></Border>
                     <Border Grid.Column="3" Name="dummywidth4"></Border>
                     <Border Grid.Column="5" Name="dummywidth5"></Border>
+                    <Border Grid.Column="6" Name="dummywidth6"></Border>
                 </Grid>
                 <ListView x:Name="orders" HorizontalAlignment="Left" Margin="0,0,0,0" PreviewMouseLeftButtonUp="orders_Click">
                     <ListView.View>
@@ -93,6 +95,7 @@
                             <GridViewColumn Header="Пункт відправлення" Width="{Binding ElementName=dummywidth3, Path=ActualWidth}" DisplayMemberBinding="{Binding Dispatch}" />
                             <GridViewColumn Header="Пункт призначення" Width="{Binding ElementName=dummywidth4, Path=ActualWidth}" DisplayMemberBinding="{Binding Destination}" />
                             <GridViewColumn Header="Час відправлення" Width="{Binding ElementName=dummywidth5, Path=ActualWidth}" DisplayMemberBinding="{Binding Time}" />
+                            <GridViewColumn Header="Виконано" Width="{Binding ElementName=dummywidth6, Path=ActualWidth}" DisplayMemberBinding="{Binding IsDone}" />
                         </GridView>
                     </ListView.View>
                 </ListView>

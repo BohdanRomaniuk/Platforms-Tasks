@@ -12,6 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Taxi_Driver_WPF.DataTypes;
+using Taxi_Driver_WPF.IOTypes;
 
 namespace _4._1__Taxi_Driver_WPF
 {
@@ -21,16 +22,31 @@ namespace _4._1__Taxi_Driver_WPF
 	public partial class MainWindow : Window
 	{
 		private TaxiDriver currentDriver;
+		private List<TaxiClient> allClients;
+		private List<TaxiDriver> allDrivers;
+		private List<TaxiOrder> allOrders;
 		public MainWindow()
 		{
 			InitializeComponent();
-			orders.Items.Add(new TaxiOrder { UserName = "Bohdan", PhoneNumber="+380968159669", Dispatch="Городоцька", Destination="Шевченка", Time=190});
-			orders.Items.Add(new TaxiOrder { UserName = "Modest", PhoneNumber = "+380968159669", Dispatch = "Городоцька", Destination = "Шевченка", Time = 190 });
+			ClientsDB clientsDB = new ClientsDB();
+			clientsDB.ReadFromFile("../../InputData/ClientsData.txt");
+			allClients = clientsDB.AllClients;
+
+			DriversDB driversDB = new DriversDB();
+			driversDB.ReadFromFile("../../InputData/DriversData.txt");
+			allDrivers = driversDB.AllDrivers;
+
+			OrdersDB ordersDB = new OrdersDB();
+			ordersDB.ReadFromFile("../../InputData/OrdersData.txt");
+			allOrders = ordersDB.AllOrders;
+
+			//orders.Items.Add(new TaxiOrder { UserName = "Bohdan", PhoneNumber="+380968159669", Dispatch="Городоцька", Destination="Шевченка", Time=190});
+			//orders.Items.Add(new TaxiOrder { UserName = "Modest", PhoneNumber = "+380968159669", Dispatch = "Городоцька", Destination = "Шевченка", Time = 190 });
 		}
 
 		private void startWork_Click(object sender, RoutedEventArgs e)
 		{
-			currentDriver = new TaxiDriver("Паробій", "Роман", 19, "ВС5674АС", 5, 50);
+			//currentDriver = new TaxiDriver("Паробій", "Роман", 19, "ВС5674АС", 5, 50);
 			driverInfoSurnameNameDetails.Content = currentDriver.Surname +" "+ currentDriver.Name;
 			driverInfoAgeDetails.Content = currentDriver.Age;
 			driverInfoCarDetails.Content = currentDriver.CarNumber;
