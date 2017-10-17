@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Taxi_Driver_WPF.DataTypes
 {
-	class TaxiClient
+	public class TaxiClient
 	{
 		private uint id;
 		private string name;

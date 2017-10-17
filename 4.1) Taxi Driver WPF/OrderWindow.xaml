@@ -65,8 +65,8 @@
                 <Label x:Name="timerDesc" Content="00:00" Grid.Row="0" Grid.Column="1" Foreground="Green" FontWeight="Bold"/>
                 <Label x:Name="roadCost" Content="Вартість: " Grid.Row="1" Grid.Column="0" Foreground="Green" FontWeight="Bold"/>
                 <Label x:Name="roadCostDesc" Content="0 грн" Grid.Row="1" Grid.Column="1" Foreground="Green" FontWeight="Bold"/>
-                <Button x:Name="startRoad" Content="Розпочати маршут" HorizontalAlignment="Center" Grid.Row="2" Grid.Column="0" VerticalAlignment="Top" Margin="5"/>
-                <Button x:Name="endRoad" Content="Завершити маршут" HorizontalAlignment="Center" Grid.Row="2" Grid.Column="1" VerticalAlignment="Top" Margin="5"/>
+                <Button x:Name="startRoad" Content="Розпочати маршут" HorizontalAlignment="Center" Grid.Row="2" Grid.Column="0" VerticalAlignment="Top" Margin="5" Click="startRoad_Click"/>
+                <Button x:Name="endRoad" Content="Завершити маршут" HorizontalAlignment="Center" Grid.Row="2" Grid.Column="1" VerticalAlignment="Top" Margin="5" Click="endRoad_Click"/>
             </Grid>
         </GroupBox>
     </Grid>

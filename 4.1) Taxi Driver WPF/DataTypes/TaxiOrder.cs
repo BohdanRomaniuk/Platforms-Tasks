@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Taxi_Driver_WPF.DataTypes
 {
-	class TaxiOrder
+	public class TaxiOrder
 	{
 		private TaxiClient client;
 		private TaxiDriver driver;

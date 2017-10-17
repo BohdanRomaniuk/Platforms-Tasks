@@ -33,13 +33,12 @@ namespace _4._1__Taxi_Driver_WPF
 
 			driversInfo = new DriversDB("../../InputData/DriversData.txt");
 			driversInfo.ReadFromFile();
-
-			//orders.Items.Add(new TaxiOrder1 { UserName = "Bohdan", PhoneNumber="+380968159669", Dispatch="Городоцька", Destination="Шевченка", Time=190});
-			//orders.Items.Add(new TaxiOrder1 { UserName = "Modest", PhoneNumber = "+380968159669", Dispatch = "Городоцька", Destination = "Шевченка", Time = 190 });
 		}
 
 		private void startWork_Click(object sender, RoutedEventArgs e)
 		{
+			orders.Items.Clear();
+
 			currentDriver = driversInfo.FindDriver(driverSurName.Text, driverUserName.Text);
 			driverInfoSurnameNameDetails.Content = currentDriver.Surname +" "+ currentDriver.Name;
 			driverInfoAgeDetails.Content = currentDriver.Age;
@@ -52,8 +51,8 @@ namespace _4._1__Taxi_Driver_WPF
 			ordersInfo.ReadFromFile();
 			foreach(TaxiOrder order in ordersInfo.AllOrders)
 			{
-
-			}
+				orders.Items.Add(order);
+            }
 		}
 
 		private void endOfWork_Click(object sender, RoutedEventArgs e)
@@ -66,18 +65,9 @@ namespace _4._1__Taxi_Driver_WPF
 			var item = (sender as ListView).SelectedItem;
 			if (item != null)
 			{
-				MessageBox.Show((item as TaxiOrder1).UserName);
-				OrderWindow wind = new OrderWindow();
+				OrderWindow wind = new OrderWindow(item as TaxiOrder);
 				wind.Show();
 			}
 		}
-	}
-	class TaxiOrder1
-	{
-		public string UserName { get; set; }
-		public string PhoneNumber { get; set; }
-		public string Dispatch { get; set; }
-		public string Destination { get; set; }
-		public uint Time { get; set; }
 	}
 }
