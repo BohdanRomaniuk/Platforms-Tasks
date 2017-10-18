@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:_4._1__Taxi_Driver_WPF"
         mc:Ignorable="d"
-        Title="Водій Таксі" Height="420" Width="730" Icon="taxi-icon.ico">
+        Title="Водій Таксі" Height="420" Width="730" Icon="taxi-icon.ico" Name="MainTaxiDriverWindow">
     <Grid Margin="10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
@@ -34,9 +34,9 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <Label x:Name="driverUsernameLabel" Content="Прізвище водія: " Grid.Row="0" Grid.Column="0"/>
-                    <TextBox x:Name="driverSurName" TextWrapping="Wrap" Height="23" Text="" Grid.Row="0" Grid.Column="1" />
+                    <TextBox x:Name="driverSurName" TextWrapping="Wrap" Height="23" Text="Паробій" Grid.Row="0" Grid.Column="1" />
                     <Label x:Name="driverUserNameLabel" Content="Імя водія: " Grid.Row="1" Grid.Column="0"/>
-                    <TextBox x:Name="driverUserName" TextWrapping="Wrap" Height="23" Text="" Grid.Row="1" Grid.Column="1"/>
+                    <TextBox x:Name="driverUserName" TextWrapping="Wrap" Height="23" Text="Роман" Grid.Row="1" Grid.Column="1"/>
                     <Button x:Name="endOfWork" Content="Завершити зміну" Grid.Row="2" Grid.Column="0" Margin="5" Click="endOfWork_Click"/>
                     <Button x:Name="startWork" Content="Почати зміну" Grid.Row="2" Grid.Column="1" Margin="5" Click="startWork_Click"/>
                 </Grid>

@@ -41,7 +41,17 @@ namespace Taxi_Driver_WPF.IOTypes
 				allDrivers.Add(new TaxiDriver(Convert.ToUInt32(lineElems[0]), lineElems[1], lineElems[2], Convert.ToUInt32(lineElems[3]), lineElems[4], Convert.ToUInt32(lineElems[5]), Convert.ToUInt32(lineElems[6]), Convert.ToDouble(lineElems[7])));
 			}
 		}
-
+		public void UpdateDriver(TaxiDriver driverToUpdate)
+		{
+			for(int i=0; i<allDrivers.Count; ++i)
+			{
+				if(allDrivers[i].Id==driverToUpdate.Id)
+				{
+					allDrivers[i] = driverToUpdate;
+					break;
+				}
+			}
+		}
 		public void WriteToFile()
 		{
 			using (StreamWriter writer = new StreamWriter(fileName))

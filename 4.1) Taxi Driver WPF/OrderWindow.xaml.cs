@@ -56,12 +56,18 @@ namespace _4._1__Taxi_Driver_WPF
 			dispatcherTimer.Stop();
             currentOrder.RoadTime = (uint)elapsedTime.TotalSeconds;
 			currentOrder.IsDone = true;
-			currentOrder.Cost = currentOrder.Driver.CostPerMinute * currentOrder.RoadTime;
+			currentOrder.Cost = currentOrder.Driver.CostPerMinute * currentOrder.RoadTime/60;
 			roadCostDesc.Content = currentOrder.Cost + " грн";
-        }
-		public TaxiOrder getOrderInfo()
-		{
-			return currentOrder;
+			MessageBox.Show(String.Format("Вітаємо {0} з вас {1} грн!!!", currentOrder.Client.Name, currentOrder.Cost), "Квитанція");
+			foreach (Window item in Application.Current.Windows)
+			{
+				if (item.Name == "MainTaxiDriverWindow")
+				{
+					(item as MainWindow).updateOrders(currentOrder);
+					break;
+				}
+			}
+			Close();
 		}
 	}
 }

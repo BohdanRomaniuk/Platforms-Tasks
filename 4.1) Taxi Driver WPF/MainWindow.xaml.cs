@@ -34,11 +34,8 @@ namespace _4._1__Taxi_Driver_WPF
 			driversInfo = new DriversDB("../../InputData/DriversData.txt");
 			driversInfo.ReadFromFile();
 		}
-
 		private void startWork_Click(object sender, RoutedEventArgs e)
 		{
-			orders.Items.Clear();
-
 			currentDriver = driversInfo.FindDriver(driverSurName.Text, driverUserName.Text);
 			driverInfoSurnameNameDetails.Content = currentDriver.Surname +" "+ currentDriver.Name;
 			driverInfoAgeDetails.Content = currentDriver.Age;
@@ -49,21 +46,16 @@ namespace _4._1__Taxi_Driver_WPF
 
 			ordersInfo = new OrdersDB("../../InputData/OrdersData.txt", clientsInfo, driversInfo);
 			ordersInfo.ReadFromFile();
-			foreach(TaxiOrder order in ordersInfo.AllOrders)
-			{
-				if(order.Driver.Id == currentDriver.Id)
-				{
-					orders.Items.Add(order);
-				}
-            }
+			ShowOrdersInListView();
 		}
-
 		private void endOfWork_Click(object sender, RoutedEventArgs e)
 		{
-			MessageBox.Show("Дякуюємо за роботу!", "Допобачення");
+			driversInfo.UpdateDriver(currentDriver);
+			//driversInfo.WriteToFile();
+			//ordersInfo.WriteToFile();
+			MessageBox.Show(String.Format("Дякуюємо за роботу {0}!",currentDriver.Name), "Допобачення");
 			Close();
 		}
-
 		private void orders_Click(object sender, RoutedEventArgs e)
 		{
 			var item = (sender as ListView).SelectedItem;
@@ -71,9 +63,25 @@ namespace _4._1__Taxi_Driver_WPF
 			{
 				OrderWindow wind = new OrderWindow(item as TaxiOrder);
 				wind.Show();
-				wind.getOrderInfo();
 			}
-			
+		}
+		public void updateOrders(TaxiOrder orderToUpdate)
+		{
+			ordersInfo.UpdateOrder(orderToUpdate);
+			ShowOrdersInListView();
+			currentDriver.PayCheck += orderToUpdate.Cost;
+			driverInfoCostDetails.Content = currentDriver.PayCheck;
+		}
+		private void ShowOrdersInListView()
+		{
+			orders.Items.Clear();
+			foreach (TaxiOrder order in ordersInfo.AllOrders)
+			{
+				if (order.Driver.Id == currentDriver.Id)
+				{
+					orders.Items.Add(order);
+				}
+			}
 		}
 	}
 }

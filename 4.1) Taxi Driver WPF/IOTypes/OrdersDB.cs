@@ -44,6 +44,17 @@ namespace Taxi_Driver_WPF.IOTypes
 				allOrders.Add(new TaxiOrder(Convert.ToUInt32(lineElems[0]), clientsInfo.GetClientById(Convert.ToUInt32(lineElems[1])), driversInfo.GetDriverById(Convert.ToUInt32(lineElems[2])), DateTime.Parse(lineElems[3]), lineElems[4], lineElems[5], Convert.ToUInt32(lineElems[6]), Convert.ToUInt32(lineElems[7]), Convert.ToBoolean(lineElems[8])));
 			}
 		}
+		public void UpdateOrder(TaxiOrder orderToUpdate)
+		{
+			for(int i=0; i<allOrders.Count; ++i)
+			{
+				if(allOrders[i].Id==orderToUpdate.Id)
+				{
+					allOrders[i] = orderToUpdate;
+					break;
+				}
+			}
+		}
 		public void WriteToFile()
 		{
 			using (StreamWriter writer = new StreamWriter(fileName))
