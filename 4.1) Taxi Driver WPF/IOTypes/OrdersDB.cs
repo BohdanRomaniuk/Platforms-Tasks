@@ -7,7 +7,7 @@ using Taxi_Driver_WPF.DataTypes;
 
 namespace Taxi_Driver_WPF.IOTypes
 {
-	class OrdersDB
+	public class OrdersDB
 	{
 		private string fileName;
 		private List<TaxiOrder> allOrders;
@@ -17,6 +17,10 @@ namespace Taxi_Driver_WPF.IOTypes
 		{
 			get
 			{
+				if (allOrders.Count == 0)
+				{
+					throw new ArgumentOutOfRangeException("Orders are empty");
+				}
 				return allOrders;
 			}
 			set

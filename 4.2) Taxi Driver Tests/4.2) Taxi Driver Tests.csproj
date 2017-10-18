@@ -53,9 +53,12 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="TaxiClientsDBTests.cs" />
     <Compile Include="TaxiClientTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TaxiDriversDBTests.cs" />
     <Compile Include="TaxiDriverTests.cs" />
+    <Compile Include="TaxiOrdersDBTests.cs" />
     <Compile Include="TaxiOrderTests.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -63,6 +66,11 @@
       <Project>{c584ea28-0548-44ec-a014-dbd5e80922b9}</Project>
       <Name>4.1%29 Taxi Driver WPF</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Clients.txt" />
+    <Content Include="Drivers.txt" />
+    <Content Include="Orders.txt" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

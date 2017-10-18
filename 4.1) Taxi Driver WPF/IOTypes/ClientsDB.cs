@@ -7,7 +7,7 @@ using Taxi_Driver_WPF.DataTypes;
 
 namespace Taxi_Driver_WPF.IOTypes
 {
-	class ClientsDB
+	public class ClientsDB
 	{
 		private string fileName;
 		private List<TaxiClient> allClients;
