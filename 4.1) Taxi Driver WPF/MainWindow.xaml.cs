@@ -41,7 +41,7 @@ namespace _4._1__Taxi_Driver_WPF
 			driverInfoAgeDetails.Content = currentDriver.Age;
 			driverInfoCarDetails.Content = currentDriver.CarNumber;
 			driverInfoExpDetails.Content = currentDriver.Experience;
-			driverInfoCostDetails.Content = currentDriver.PayCheck;
+			driverInfoCostDetails.Content = currentDriver.PayCheck + " грн";
 			driverInfoCostPerMinDetails.Content = currentDriver.CostPerMinute;
 
 			ordersInfo = new OrdersDB("../../InputData/OrdersData.txt", clientsInfo, driversInfo);
@@ -51,8 +51,8 @@ namespace _4._1__Taxi_Driver_WPF
 		private void endOfWork_Click(object sender, RoutedEventArgs e)
 		{
 			driversInfo.UpdateDriver(currentDriver);
-			//driversInfo.WriteToFile();
-			//ordersInfo.WriteToFile();
+			driversInfo.WriteToFile();
+			ordersInfo.WriteToFile();
 			MessageBox.Show(String.Format("Дякуюємо за роботу {0}!",currentDriver.Name), "Допобачення");
 			Close();
 		}
@@ -68,9 +68,9 @@ namespace _4._1__Taxi_Driver_WPF
 		public void updateOrders(TaxiOrder orderToUpdate)
 		{
 			ordersInfo.UpdateOrder(orderToUpdate);
-			ShowOrdersInListView();
 			currentDriver.PayCheck += orderToUpdate.Cost;
-			driverInfoCostDetails.Content = currentDriver.PayCheck;
+			driverInfoCostDetails.Content = currentDriver.PayCheck + " грн";
+			ShowOrdersInListView();
 		}
 		private void ShowOrdersInListView()
 		{

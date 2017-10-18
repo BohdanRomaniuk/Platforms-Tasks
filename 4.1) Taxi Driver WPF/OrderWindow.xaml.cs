@@ -33,7 +33,7 @@ namespace _4._1__Taxi_Driver_WPF
 			clientPhoneDesc.Content = currentOrder.Client.PhoneNumber;
 			clientFromDesc.Content = currentOrder.Dispatch;
 			clientToDesc.Content = currentOrder.Destination;
-			clientTimeDesc.Content = currentOrder.ArriveTime;
+			clientTimeDesc.Content = currentOrder.ArriveTime.ToString("dd-MM-yyyy HH:mm");
 		}
 		private void startTimer()
 		{

@@ -152,7 +152,7 @@ namespace Taxi_Driver_WPF.DataTypes
 		}
 		public override string ToString()
 		{
-			return String.Format("{0} {1} {2} {3} {4} {5} {6} {7}", Client.Id, Driver.Id, ArriveTime, Dispatch, Destination, RoadTime, Cost, IsDone);
+			return String.Format("{0} {1} {2} {3} {4} {5} {6} {7} {8}", Id, Client.Id, Driver.Id, ArriveTime.ToString("yyyy-MM-dd_HH:mm"), Dispatch, Destination, RoadTime, Cost, IsDone);
 		}
 	}
 }

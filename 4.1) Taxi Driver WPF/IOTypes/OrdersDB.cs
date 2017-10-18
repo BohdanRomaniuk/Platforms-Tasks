@@ -41,7 +41,7 @@ namespace Taxi_Driver_WPF.IOTypes
 			foreach (string line in allLines)
 			{
 				string[] lineElems = line.Split(' ');
-				allOrders.Add(new TaxiOrder(Convert.ToUInt32(lineElems[0]), clientsInfo.GetClientById(Convert.ToUInt32(lineElems[1])), driversInfo.GetDriverById(Convert.ToUInt32(lineElems[2])), DateTime.Parse(lineElems[3]), lineElems[4], lineElems[5], Convert.ToUInt32(lineElems[6]), Convert.ToUInt32(lineElems[7]), Convert.ToBoolean(lineElems[8])));
+				allOrders.Add(new TaxiOrder(Convert.ToUInt32(lineElems[0]), clientsInfo.GetClientById(Convert.ToUInt32(lineElems[1])), driversInfo.GetDriverById(Convert.ToUInt32(lineElems[2])), DateTime.Parse(lineElems[3].Replace("_"," ")), lineElems[4], lineElems[5], Convert.ToUInt32(lineElems[6]), Convert.ToUInt32(lineElems[7]), Convert.ToBoolean(lineElems[8])));
 			}
 		}
 		public void UpdateOrder(TaxiOrder orderToUpdate)
