@@ -13,7 +13,6 @@ namespace Taxi_Driver_WPF.IOTypes
 		private List<TaxiOrder> allOrders;
 		private ClientsDB clientsInfo;
 		private DriversDB driversInfo;
-		private TaxiDriver currentDriver;
 		public List<TaxiOrder> AllOrders
 		{
 			get
@@ -29,13 +28,12 @@ namespace Taxi_Driver_WPF.IOTypes
 				allOrders = value;
 			}
 		}
-		public OrdersDB(string _fileName, ClientsDB _clientsInfo, DriversDB _driversInfo, TaxiDriver _currentDriver)
+		public OrdersDB(string _fileName, ClientsDB _clientsInfo, DriversDB _driversInfo)
 		{
 			allOrders = new List<TaxiOrder>();
 			fileName = _fileName;
 			clientsInfo = _clientsInfo;
 			driversInfo = _driversInfo;
-			currentDriver = _currentDriver;
 		}
 		public void ReadFromFile()
 		{
@@ -43,10 +41,7 @@ namespace Taxi_Driver_WPF.IOTypes
 			foreach (string line in allLines)
 			{
 				string[] lineElems = line.Split(' ');
-				if(Convert.ToUInt32(lineElems[1])==currentDriver.Id)
-				{
-					allOrders.Add(new TaxiOrder(clientsInfo.GetClientById(Convert.ToUInt32(lineElems[0])), currentDriver, DateTime.Parse(lineElems[2]), lineElems[3], lineElems[4], Convert.ToUInt32(lineElems[5]), Convert.ToUInt32(lineElems[6]), Convert.ToBoolean(lineElems[7])));
-				}
+				allOrders.Add(new TaxiOrder(Convert.ToUInt32(lineElems[0]), clientsInfo.GetClientById(Convert.ToUInt32(lineElems[1])), driversInfo.GetDriverById(Convert.ToUInt32(lineElems[2])), DateTime.Parse(lineElems[3]), lineElems[4], lineElems[5], Convert.ToUInt32(lineElems[6]), Convert.ToUInt32(lineElems[7]), Convert.ToBoolean(lineElems[8])));
 			}
 		}
 		public void WriteToFile()

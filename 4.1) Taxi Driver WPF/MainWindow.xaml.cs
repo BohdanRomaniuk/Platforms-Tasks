@@ -47,17 +47,21 @@ namespace _4._1__Taxi_Driver_WPF
 			driverInfoCostDetails.Content = currentDriver.PayCheck;
 			driverInfoCostPerMinDetails.Content = currentDriver.CostPerMinute;
 
-			ordersInfo = new OrdersDB("../../InputData/OrdersData.txt", clientsInfo, driversInfo, currentDriver);
+			ordersInfo = new OrdersDB("../../InputData/OrdersData.txt", clientsInfo, driversInfo);
 			ordersInfo.ReadFromFile();
 			foreach(TaxiOrder order in ordersInfo.AllOrders)
 			{
-				orders.Items.Add(order);
+				if(order.Driver.Id == currentDriver.Id)
+				{
+					orders.Items.Add(order);
+				}
             }
 		}
 
 		private void endOfWork_Click(object sender, RoutedEventArgs e)
 		{
-
+			MessageBox.Show("Дякуюємо за роботу!", "Допобачення");
+			Close();
 		}
 
 		private void orders_Click(object sender, RoutedEventArgs e)
@@ -67,7 +71,9 @@ namespace _4._1__Taxi_Driver_WPF
 			{
 				OrderWindow wind = new OrderWindow(item as TaxiOrder);
 				wind.Show();
+				wind.getOrderInfo();
 			}
+			
 		}
 	}
 }

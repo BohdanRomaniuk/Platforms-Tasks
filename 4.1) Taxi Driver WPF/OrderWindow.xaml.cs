@@ -21,9 +21,9 @@ namespace _4._1__Taxi_Driver_WPF
 	public partial class OrderWindow : Window
 	{
 		private TaxiOrder currentOrder;
-		DispatcherTimer dispatcherTimer = new DispatcherTimer();
-		DateTime startTime;
-		TimeSpan elapsedTime;
+		private DispatcherTimer dispatcherTimer = new DispatcherTimer();
+		private DateTime startTime;
+		private TimeSpan elapsedTime;
         public OrderWindow(TaxiOrder _currentOrder)
 		{
 			InitializeComponent();
@@ -59,5 +59,9 @@ namespace _4._1__Taxi_Driver_WPF
 			currentOrder.Cost = currentOrder.Driver.CostPerMinute * currentOrder.RoadTime;
 			roadCostDesc.Content = currentOrder.Cost + " грн";
         }
+		public TaxiOrder getOrderInfo()
+		{
+			return currentOrder;
+		}
 	}
 }

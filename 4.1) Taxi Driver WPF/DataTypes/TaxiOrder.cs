@@ -7,6 +7,7 @@ namespace Taxi_Driver_WPF.DataTypes
 {
 	public class TaxiOrder
 	{
+		private uint id;
 		private TaxiClient client;
 		private TaxiDriver driver;
 		private DateTime arriveTime;
@@ -15,6 +16,21 @@ namespace Taxi_Driver_WPF.DataTypes
 		private uint roadTime;
 		private uint cost;
 		private bool isDone;
+		public uint Id
+		{
+			get
+			{
+				return id;
+			}
+			set
+			{
+				if(value<0)
+				{
+					throw new ArgumentOutOfRangeException("Id cant be <0");
+				}
+				id = value;
+			}
+		}
 		public TaxiClient Client
 		{
 			get
@@ -122,8 +138,9 @@ namespace Taxi_Driver_WPF.DataTypes
 		public TaxiOrder()
 		{
 		}
-		public TaxiOrder(TaxiClient _client, TaxiDriver _driver, DateTime _arrive, string _dispatch, string _destination, uint _roadTime, uint _cost = 0, bool _isDone = false)
+		public TaxiOrder(uint _id, TaxiClient _client, TaxiDriver _driver, DateTime _arrive, string _dispatch, string _destination, uint _roadTime, uint _cost = 0, bool _isDone = false)
 		{
+			Id = _id;
 			Client = _client;
 			Driver = _driver;
 			ArriveTime = _arrive;
