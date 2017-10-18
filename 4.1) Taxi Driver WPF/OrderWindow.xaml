@@ -61,7 +61,7 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-                <Label x:Name="timer" Content="Час маршуту: " Grid.Row="0" Grid.Column="0" />
+                <Label x:Name="timerLabel" Content="Час маршуту: " Grid.Row="0" Grid.Column="0" />
                 <Label x:Name="timerDesc" Content="00:00" Grid.Row="0" Grid.Column="1" Foreground="Green" FontWeight="Bold"/>
                 <Label x:Name="roadCost" Content="Вартість: " Grid.Row="1" Grid.Column="0" Foreground="Green" FontWeight="Bold"/>
                 <Label x:Name="roadCostDesc" Content="0 грн" Grid.Row="1" Grid.Column="1" Foreground="Green" FontWeight="Bold"/>
