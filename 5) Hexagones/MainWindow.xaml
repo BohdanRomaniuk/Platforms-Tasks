@@ -9,19 +9,19 @@
     <DockPanel>
             <Menu DockPanel.Dock="Top">
                 <MenuItem Header="File">
-                    <MenuItem Header="New" Click="NewFigure_Click"/>
-                    <MenuItem Header="Open" Click="OpenFigure_Click"/>
-                    <MenuItem Header="Save" Click="SaveFigure_Click"/>
+                    <MenuItem Header="New" Command="{Binding ClearWindow_Command}"/>
+                    <MenuItem Header="Open" Command="{Binding OpenFile_Command}"/>
+                    <MenuItem Header="Save" Command="{Binding SaveFile_Command}"/>
                     <Separator />
-                    <MenuItem Header="Exit" Click="Close_Click" />
+                    <MenuItem Header="Exit" Command="{Binding CloseWindow_Command}" />
                 </MenuItem>
                 <MenuItem Header="Shapes">
                     <MenuItem Header="1" />
                 </MenuItem>
             </Menu>
-        <Canvas Name="Surface" Background="#FFD0E6F6" DockPanel.Dock="Bottom" MouseMove="Canvas_MouseMove" 
+        <Canvas Name="surface" Background="Transparent" DockPanel.Dock="Bottom" 
+             MouseMove="Canvas_MouseMove" 
              MouseLeftButtonDown="Canvas_MouseLeftButtonDown"  
-             MouseLeftButtonUp="Canvas_MouseLeftButtonUp"
-             MouseRightButtonDown="Canvas_MouseRightButtonDown"/>
+             MouseLeftButtonUp="Canvas_MouseLeftButtonUp"/>
         </DockPanel>
 </Window>

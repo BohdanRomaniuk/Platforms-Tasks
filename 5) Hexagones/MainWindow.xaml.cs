@@ -12,6 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.Win32;
+using System.IO;
+using System.Xml.Serialization;
 
 namespace _5__Hexagones
 {
@@ -20,82 +23,111 @@ namespace _5__Hexagones
     /// </summary>
     public partial class MainWindow : Window
     {
-        private Polygon currentPolygon;
-        private Polyline currentSegment = new Polyline();
+        private Polygon currentHexagone;
+        private Color currentColor = Colors.RoyalBlue;
+        private Polyline currentLine = new Polyline();
+        private int sideCount = 0;
+        private List<Polygon> hexagones = new List<Polygon>();
 
         public MainWindow()
         {
             InitializeComponent();
         }
 
-        private void Canvas_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            if (currentPolygon == null)
-            {
-                var Surface = (Canvas)sender;
-                var point = e.GetPosition(Surface);
-
-                // create new polyline
-                currentPolygon = new Polygon();
-                currentPolygon.Stroke = Brushes.Black;
-                currentPolygon.Points.Add(point);
-                currentPolygon.Fill = new SolidColorBrush(Colors.Blue);
-                Surface.Children.Add(currentPolygon);
-
-                // initialize current polyline currentSegment
-                currentSegment.Stroke = Brushes.Red;
-                currentSegment.Points.Add(point);
-                currentSegment.Points.Add(point);
-                Surface.Children.Add(currentSegment);
-            }
-        }
-
-        private void Canvas_MouseMove(object sender, MouseEventArgs e)
-        {
-            if (currentPolygon != null)
-            {
-                // update current polyline currentSegment
-                var Surface = (Canvas)sender;
-                currentSegment.Points[1] = e.GetPosition(Surface);
-                currentSegment.Stroke = Brushes.Blue;
-            }
-        }
-
-        private void Canvas_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            currentPolygon = null;
-            currentSegment.Points.Clear();
-            Surface.Children.Remove(currentSegment);
-        }
-        private void Canvas_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            if (currentPolygon != null)
-            {
-                var Surface = (Canvas)sender;
-                currentSegment.Points[1] = e.GetPosition(Surface);
-
-                currentPolygon.Points.Add(currentSegment.Points[1]);
-                currentSegment.Points[0] = currentSegment.Points[1];
-            }
-        }
         private void NewFigure_Click(object sender, RoutedEventArgs e)
         {
-            Surface.Children.Clear();
+            surface.Children.Clear();
         }
 
         private void OpenFigure_Click(object sender, RoutedEventArgs e)
         {
-            
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.DefaultExt = ".xml";
+            openFileDialog.Filter = "XML documents (.xml)|*.xml";
+            if (openFileDialog.ShowDialog() == true)
+            {
+                string fileName = openFileDialog.FileName;
+            }
         }
 
         private void SaveFigure_Click(object sender, RoutedEventArgs e)
         {
-            
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.DefaultExt = ".xml";
+            saveFileDialog.FileName = "New_shapes.xml";
+            saveFileDialog.Filter = "XML documents (.xml)|*.xml";
+            if (saveFileDialog.ShowDialog() == true)
+            {
+                string fileName = saveFileDialog.FileName;
+
+                using (Stream outputFile = new FileStream(fileName, FileMode.Create, FileAccess.Write, FileShare.None))
+                {
+                    XmlSerializer serializer = new XmlSerializer(typeof(List<Polygon>));
+                    serializer.Serialize(outputFile, hexagones);
+                }
+            }
         }
 
         private void Close_Click(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        private void Canvas_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (currentHexagone == null)
+            {
+                var surface = (Canvas)sender;
+                var point = e.GetPosition(surface);
+
+                // Нова лінія для шестикутника (чорного кольору)
+                currentHexagone = new Polygon();
+                currentHexagone.Stroke = Brushes.Black;
+                currentHexagone.Points.Add(point);
+                
+                surface.Children.Add(currentHexagone);
+
+                // initialize current polyline currentLine
+                currentLine.Stroke = Brushes.Red;
+                currentLine.Points.Add(point);
+                currentLine.Points.Add(point);
+                surface.Children.Add(currentLine);
+            }
+        }
+
+        private void Canvas_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (currentHexagone != null)
+            {
+                // Малює нову лінію червоного кольору
+                var surface = (Canvas)sender;
+                currentLine.Points[1] = e.GetPosition(surface);
+                currentLine.Stroke = Brushes.Red;
+            }
+        }
+
+        private void Canvas_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            if (currentHexagone != null)
+            {
+                var surface = (Canvas)sender;
+                currentLine.Points[1] = e.GetPosition(surface);
+
+                currentHexagone.Points.Add(currentLine.Points[1]);
+                currentLine.Points[0] = currentLine.Points[1];
+
+                if (++sideCount == 6)
+                {
+                    sideCount = 0;
+                    ColorsWindow colWin = new ColorsWindow();
+                    colWin.Show();
+                    currentHexagone.Fill = new SolidColorBrush(currentColor);
+                    hexagones.Add(currentHexagone);
+                    currentHexagone = null;
+                    currentLine.Points.Clear();
+                    surface.Children.Remove(currentLine);
+                }
+            }
         }
     }
 }
