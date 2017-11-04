@@ -19,9 +19,19 @@ namespace WPF_Hexagones
     /// </summary>
     public partial class ColorsWindow : Window
     {
-        public ColorsWindow()
+        public ColorsWindow(MainViewModel mainViewModel)
         {
-            InitializeComponent();
+			InitializeComponent();
+			DataContext = mainViewModel;
+			
         }
-    }
+
+		/*
+		 * private void Button_Click(object sender, RoutedEventArgs e)
+		{
+			DialogResult = true;
+			Close();
+		}
+		*/
+	}
 }

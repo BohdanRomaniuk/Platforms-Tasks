@@ -30,7 +30,6 @@
                     <Canvas IsItemsHost="True" Name="surface" Background="Transparent">
                         <Canvas.InputBindings>
                             <MouseBinding Gesture="LeftClick" Command="{Binding DrawClick_Command}" CommandParameter="{Binding ElementName=surface}" />
-                            <MouseBinding Gesture="RightClick" Command="{Binding DrawPolyCommand}" CommandParameter="{Binding ElementName=surface}" />
                         </Canvas.InputBindings>
                     </Canvas>
                 </ItemsPanelTemplate>

@@ -5,19 +5,25 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPF_Hexagones"
         mc:Ignorable="d"
-        Title="Colors" Height="144.844" Width="215.232">
+        Title="Colors" Height="192" Width="209.243">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.5*"></ColumnDefinition>
+            <ColumnDefinition Width="0.5*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="0.2*"></RowDefinition>
             <RowDefinition Height="0.2*"></RowDefinition>
             <RowDefinition Height="0.2*"></RowDefinition>
             <RowDefinition Height="0.2*"></RowDefinition>
             <RowDefinition Height="0.2*"></RowDefinition>
+            <RowDefinition Height="0.3*"></RowDefinition>
         </Grid.RowDefinitions>
-        <RadioButton x:Name="red" Content="Red" Grid.Row="0" Margin="4"/>
-        <RadioButton x:Name="green" Content="Green" Grid.Row="1" Margin="4"/>
-        <RadioButton x:Name="blue" Content="Blue" Grid.Row="2" Margin="4"/>
-        <RadioButton x:Name="yellow" Content="Yellow" Grid.Row="3" Margin="4"/>
-        <RadioButton x:Name="black" Content="Black" Grid.Row="4" Margin="4"/>
+        <ComboBox SelectedItem="{Binding CurrentColor}" SelectedIndex="0">
+            <Color>Red</Color>
+            <Color>Blue</Color>
+            <Color>Yellow</Color>
+        </ComboBox>
+        <Button Content="Apply" Grid.Row="5" Grid.Column="1" Margin="5" Command="{Binding ApplyColor_Command}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
     </Grid>
 </Window>

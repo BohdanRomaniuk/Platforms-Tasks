@@ -16,13 +16,14 @@ using Microsoft.Win32;
 
 namespace WPF_Hexagones
 {
-	class MainViewModel : INotifyPropertyChanged
+	public class MainViewModel : INotifyPropertyChanged
 	{
 		public ObservableCollection<Polygon> Hexagones { get; private set; }
 		private Polygon CurrentHexagone { get; set; }
 		private uint Count { get; set; }
-		private Color CurrentColor { get; set; }
+		public Color CurrentColor { get; set; }
 		public ICommand DrawClick_Command { get; private set; }
+		public ICommand ApplyColor_Command { get; set; }
 
 		public ICommand ClearWindow_Command { get; private set; }
 		public ICommand CloseWindow_Command { get; private set; }
@@ -32,16 +33,15 @@ namespace WPF_Hexagones
 		public MainViewModel()
 		{
 			Hexagones = new ObservableCollection<Polygon>();
-			Hexagones.Add(new Polygon() { Stroke = Brushes.Black, Fill = new SolidColorBrush(Colors.Red), Name = String.Format("Hexagone_{0}", Hexagones.Count + 1), Points = new System.Windows.Media.PointCollection { new System.Windows.Point(10, 10), new System.Windows.Point(78, 90), new System.Windows.Point(140, 150) } });
-			Hexagones.Add(new Polygon() { Name = String.Format("Hexagone_{0}", Hexagones.Count + 1) });
-			OnPropertyChanged("Hexagones");
 			Count = 0;
+			CurrentColor = Colors.Red;
 			CurrentHexagone = new Polygon();
 			ClearWindow_Command = new RelayCommand(ClearWindow);
 			OpenFile_Command = new RelayCommand(OpenFile);
 			SaveFile_Command = new RelayCommand(SaveFile);
 			CloseWindow_Command = new RelayCommand(CloseWindow);
 			DrawClick_Command = new RelayCommand(DrawClick);
+			ApplyColor_Command = new RelayCommand(ApplyColor);
 		}
 		
 		private void DrawClick(object obj)
@@ -51,18 +51,24 @@ namespace WPF_Hexagones
 			CurrentHexagone.Points.Add(mousePoint);
 			if(++Count==6)
 			{
-				ColorsWindow cw = new ColorsWindow();
-				if(cw.ShowDialog()==true)
+				ColorsWindow colorWin = new ColorsWindow(this);
+				if(colorWin.ShowDialog()==true)
 				{
-					
+					CurrentHexagone.Fill = new SolidColorBrush(CurrentColor);
 				}
-				CurrentColor = Colors.Red;
-				CurrentHexagone.Fill = new SolidColorBrush(CurrentColor);
+				CurrentHexagone.Name = String.Format("Hexagone_{0}", Hexagones.Count + 1);
 				Hexagones.Add(CurrentHexagone);
 				CurrentHexagone = new Polygon();
 				OnPropertyChanged("Hexagones");
 				Count = 0;
 			}
+		}
+
+		private void ApplyColor(object obj)
+		{
+			ColorsWindow colorsWindow = (ColorsWindow)obj;
+			colorsWindow.DialogResult = true;
+			colorsWindow.Close();
 		}
 
 		private void ClearWindow(object obj)
