@@ -1,19 +1,16 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.IO;
-using System.Xml.Serialization;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.IO;
+using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Shapes;
 using System.Windows.Media;
 using System.Windows.Input;
-using Microsoft.Win32;
 using System.Xml;
+using System.Xml.Serialization;
 
 namespace WPF_Hexagones
 {
@@ -107,8 +104,9 @@ namespace WPF_Hexagones
 				Hexagones.Clear();
 				for(int i=0; i<hexagones.Count; ++i)
 				{
-					Hexagones.Add(new Polygon() { Name = String.Format("Hexagone_{0}", i + 1), Points = hexagones[i].Points, Fill = new SolidColorBrush(hexagones[i].HexagoneColor) });
+					Hexagones.Add(new Polygon() { Name = String.Format("Hexagone_{0}", i + 1), Stroke = Brushes.Black, Points = hexagones[i].Points, Fill = new SolidColorBrush(hexagones[i].HexagoneColor) });
 				}
+				OnPropertyChanged("Hexagones");
 			}
 		}
 
