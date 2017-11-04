@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hexagones
+namespace WPF_Hexagones
 {
     [Serializable]
     public class Hexagone

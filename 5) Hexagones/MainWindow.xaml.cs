@@ -16,24 +16,28 @@ using Microsoft.Win32;
 using System.IO;
 using System.Xml.Serialization;
 
-namespace _5__Hexagones
+namespace WPF_Hexagones
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
-        private Polygon currentHexagone;
+        /*
+		private Polygon currentHexagone;
         private Color currentColor = Colors.RoyalBlue;
         private Polyline currentLine = new Polyline();
         private int sideCount = 0;
         private List<Polygon> hexagones = new List<Polygon>();
+		*/
 
         public MainWindow()
         {
             InitializeComponent();
+			DataContext = new MainViewModel();
         }
 
+		/*
         private void NewFigure_Click(object sender, RoutedEventArgs e)
         {
             surface.Children.Clear();
@@ -129,5 +133,6 @@ namespace _5__Hexagones
                 }
             }
         }
+		*/
     }
 }

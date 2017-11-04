@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace _5__Hexagones
+namespace WPF_Hexagones
 {
     /// <summary>
     /// Interaction logic for ColorsWindow.xaml
