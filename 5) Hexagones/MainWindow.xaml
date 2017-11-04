@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPF_Hexagones"
         mc:Ignorable="d"
-        Title="Hexagones" Height="550" Width="750" Icon="hexagon.ico">
+        x:Name="MainWindowName" Title="Hexagones" Height="550" Width="750" Icon="hexagon.ico">
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="File">
@@ -13,7 +13,7 @@
                 <MenuItem Header="Open" Command="{Binding OpenFile_Command}"/>
                 <MenuItem Header="Save" Command="{Binding SaveFile_Command}"/>
                 <Separator />
-                <MenuItem Header="Exit" Command="{Binding CloseWindow_Command}"/>
+                <MenuItem Header="Exit" Command="{Binding CloseWindow_Command}" CommandParameter="{Binding ElementName=MainWindowName}"/>
             </MenuItem>
             <MenuItem Header="Shapes" ItemsSource="{Binding Hexagones}">
                 <MenuItem.ItemContainerStyle>

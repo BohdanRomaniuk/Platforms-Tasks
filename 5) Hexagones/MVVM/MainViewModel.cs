@@ -13,6 +13,7 @@ using System.Windows.Shapes;
 using System.Windows.Media;
 using System.Windows.Input;
 using Microsoft.Win32;
+using System.Xml;
 
 namespace WPF_Hexagones
 {
@@ -21,7 +22,19 @@ namespace WPF_Hexagones
 		public ObservableCollection<Polygon> Hexagones { get; private set; }
 		private Polygon CurrentHexagone { get; set; }
 		private uint Count { get; set; }
-		public Color CurrentColor { get; set; }
+		private Color currentColor;
+		public Color CurrentColor
+		{
+			get
+			{
+				return currentColor;
+			}
+			set
+			{
+				currentColor = value;
+				OnPropertyChanged("CurrentColor");
+			}
+		}
 		public ICommand DrawClick_Command { get; private set; }
 		public ICommand ApplyColor_Command { get; set; }
 
@@ -85,6 +98,17 @@ namespace WPF_Hexagones
 			if (openFileDialog.ShowDialog() == true)
 			{
 				string fileName = openFileDialog.FileName;
+				List<Hexagone> hexagones = new List<Hexagone>();
+				XmlSerializer serializer = new XmlSerializer(typeof(List<Hexagone>));
+				using (XmlReader reader = XmlReader.Create(fileName))
+				{
+					hexagones = (List<Hexagone>)serializer.Deserialize(reader);
+				}
+				Hexagones.Clear();
+				for(int i=0; i<hexagones.Count; ++i)
+				{
+					Hexagones.Add(new Polygon() { Name = String.Format("Hexagone_{0}", i + 1), Points = hexagones[i].Points, Fill = new SolidColorBrush(hexagones[i].HexagoneColor) });
+				}
 			}
 		}
 
@@ -97,24 +121,22 @@ namespace WPF_Hexagones
 			if (saveFileDialog.ShowDialog() == true)
 			{
 				string fileName = saveFileDialog.FileName;
-
-				/*
-				 * using (Stream outputFile = new FileStream(fileName, FileMode.Create, FileAccess.Write, FileShare.None))
+				List<Hexagone> hexagones = new List<Hexagone>();
+				foreach(var elem in Hexagones)
 				{
-					XmlSerializer serializer = new XmlSerializer(typeof(List<Polygon>));
+					hexagones.Add(new Hexagone(elem));
+				}
+				using (Stream outputFile = new FileStream(fileName, FileMode.Create, FileAccess.Write, FileShare.None))
+				{
+					XmlSerializer serializer = new XmlSerializer(typeof(List<Hexagone>));
 					serializer.Serialize(outputFile, hexagones);
 				}
-				*/
 			}
 		}
 
 		private void CloseWindow(object obj)
 		{
-			var mainWindow = (Application.Current.MainWindow as MainWindow);
-			if (mainWindow != null)
-			{
-				mainWindow.Close();
-			}
+			(obj as MainWindow).Close();
 		}
 
 		public event PropertyChangedEventHandler PropertyChanged;
