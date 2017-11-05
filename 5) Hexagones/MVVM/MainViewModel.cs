@@ -17,7 +17,7 @@ namespace WPF_Hexagones
 {
 	public class MainViewModel : INotifyPropertyChanged
 	{
-		public ObservableCollection<Polygon> Hexagones { get; private set; }
+		public ObservableCollection<Polygon> Hexagones { get; set; }
 		private Polygon CurrentHexagone { get; set; }
 		private uint CountHexEdges { get; set; }
 		private Color currentColor;

@@ -7,7 +7,22 @@ namespace WPF_Hexagones
 	[Serializable]
 	public class Hexagone
 	{
-		public PointCollection Points { get;set;}
+		private PointCollection points;
+		public PointCollection Points
+		{
+			get
+			{
+				return points;
+			}
+			set
+			{
+				if(value.Count!=6)
+				{
+					throw new ArgumentException("Number of point must be 6");
+				}
+				points = value;
+			}
+		}
 		public Color HexagoneColor { get; set; }
 		public Hexagone() { }
 		public Hexagone(Polygon figure)
@@ -15,5 +30,5 @@ namespace WPF_Hexagones
 			Points = figure.Points;
 			HexagoneColor = (figure.Fill as SolidColorBrush).Color;
 		}
-    }
+	}
 }
