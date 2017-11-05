@@ -1,4 +1,17 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
+using System.Windows.Shapes;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+
 
 namespace WPF_Hexagones
 {
@@ -8,6 +21,6 @@ namespace WPF_Hexagones
         {
             InitializeComponent();
 			DataContext = new MainViewModel();
-        }
-    }
+		}
+	}
 }

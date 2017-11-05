@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Input;
 using System.Xml;
 using System.Xml.Serialization;
+using System.Windows.Controls;
 
 namespace WPF_Hexagones
 {
@@ -18,7 +19,7 @@ namespace WPF_Hexagones
 	{
 		public ObservableCollection<Polygon> Hexagones { get; private set; }
 		private Polygon CurrentHexagone { get; set; }
-		private uint Count { get; set; }
+		private uint CountHexEdges { get; set; }
 		private Color currentColor;
 		public Color CurrentColor
 		{
@@ -32,18 +33,28 @@ namespace WPF_Hexagones
 				OnPropertyChanged("CurrentColor");
 			}
 		}
+
+		//Painting
 		public ICommand DrawClick_Command { get; private set; }
 		public ICommand ApplyColor_Command { get; set; }
 
+		//File Menu
 		public ICommand ClearWindow_Command { get; private set; }
-		public ICommand CloseWindow_Command { get; private set; }
 		public ICommand OpenFile_Command { get; private set; }
 		public ICommand SaveFile_Command { get; private set; }
+		public ICommand CloseWindow_Command { get; private set; }
+
+		//Selecting and draging hexogones
+		public ICommand SelectHexagone_Command { get; private set; }
+		public ICommand Drag_Command { get; private set; }
+		private bool AllowDragging { get; set; }
+		private Point MousePosition { get; set; }
+		private Polygon SelectedHexagone { get; set; }
 
 		public MainViewModel()
 		{
 			Hexagones = new ObservableCollection<Polygon>();
-			Count = 0;
+			CountHexEdges = 0;
 			CurrentColor = Colors.Red;
 			CurrentHexagone = new Polygon();
 			ClearWindow_Command = new RelayCommand(ClearWindow);
@@ -52,14 +63,18 @@ namespace WPF_Hexagones
 			CloseWindow_Command = new RelayCommand(CloseWindow);
 			DrawClick_Command = new RelayCommand(DrawClick);
 			ApplyColor_Command = new RelayCommand(ApplyColor);
+
+			SelectHexagone_Command = new RelayCommand(SelectHexagone);
+			Drag_Command = new RelayCommand(Drag);
 		}
-		
+
+		//Painting
 		private void DrawClick(object obj)
 		{
 			Point mousePoint = Mouse.GetPosition((IInputElement)obj);
 			CurrentHexagone.Stroke = Brushes.Black;
 			CurrentHexagone.Points.Add(mousePoint);
-			if(++Count==6)
+			if(++CountHexEdges==6)
 			{
 				ColorsWindow colorWin = new ColorsWindow(this);
 				if(colorWin.ShowDialog()==true)
@@ -70,7 +85,7 @@ namespace WPF_Hexagones
 				Hexagones.Add(CurrentHexagone);
 				CurrentHexagone = new Polygon();
 				OnPropertyChanged("Hexagones");
-				Count = 0;
+				CountHexEdges = 0;
 			}
 		}
 
@@ -81,6 +96,7 @@ namespace WPF_Hexagones
 			colorsWindow.Close();
 		}
 
+		//File Menu
 		private void ClearWindow(object obj)
 		{
 			Hexagones.Clear();
@@ -135,6 +151,43 @@ namespace WPF_Hexagones
 		private void CloseWindow(object obj)
 		{
 			(obj as MainWindow).Close();
+		}
+
+		//Selecting and draging hexogones
+		private void SelectHexagone(object obj)
+		{
+			Polygon curHexagone = (obj as Polygon);
+			curHexagone.MouseDown += new MouseButtonEventHandler(Hexagone_MouseDown);
+			OnPropertyChanged("Hexagones");
+		}
+
+		private void Drag(object obj)
+		{
+			Canvas plane = (obj as Canvas);
+			plane.MouseMove += new MouseEventHandler(Canvas_MouseMove);
+			plane.MouseUp += new MouseButtonEventHandler(Canvas_MouseUp);
+		}
+
+		//Events
+		void Hexagone_MouseDown(object sender, MouseButtonEventArgs e)
+		{
+			AllowDragging = true;
+			SelectedHexagone = sender as Polygon;
+			MousePosition = e.GetPosition(SelectedHexagone);
+		}
+
+		void Canvas_MouseUp(object sender, MouseButtonEventArgs e)
+		{
+			AllowDragging = false;
+		}
+
+		void Canvas_MouseMove(object sender, MouseEventArgs e)
+		{
+			if (AllowDragging)
+			{
+				Canvas.SetLeft(SelectedHexagone, e.GetPosition(sender as IInputElement).X - MousePosition.X);
+				Canvas.SetTop(SelectedHexagone, e.GetPosition(sender as IInputElement).Y - MousePosition.Y);
+			}
 		}
 
 		public event PropertyChangedEventHandler PropertyChanged;

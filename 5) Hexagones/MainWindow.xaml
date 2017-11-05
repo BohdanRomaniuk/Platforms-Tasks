@@ -20,6 +20,8 @@
                     <Style TargetType="MenuItem">
                         <Setter Property="Header" Value="{Binding Name}"/>
                         <Setter Property="IsCheckable" Value="True"/>
+                        <Setter Property="Command" Value="{Binding DataContext.SelectHexagone_Command, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}, Mode=FindAncestor}}"/>
+                        <Setter Property="CommandParameter" Value="{Binding}"></Setter>
                     </Style>
                 </MenuItem.ItemContainerStyle>
             </MenuItem>
@@ -27,9 +29,10 @@
         <ItemsControl ItemsSource="{Binding Hexagones}" DockPanel.Dock="Bottom">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <Canvas IsItemsHost="True" Name="surface" Background="Transparent">
+                    <Canvas Name="Surface" IsItemsHost="True" Background="Transparent">
                         <Canvas.InputBindings>
-                            <MouseBinding Gesture="LeftClick" Command="{Binding DrawClick_Command}" CommandParameter="{Binding ElementName=surface}" />
+                            <MouseBinding Gesture="LeftClick" Command="{Binding DrawClick_Command}" CommandParameter="{Binding ElementName=Surface}" />
+                            <MouseBinding Gesture="RightClick" Command="{Binding Drag_Command}" CommandParameter="{Binding ElementName=Surface}" />
                         </Canvas.InputBindings>
                     </Canvas>
                 </ItemsPanelTemplate>
