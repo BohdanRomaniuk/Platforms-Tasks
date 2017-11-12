@@ -18,7 +18,7 @@ namespace WPF_Hexagones
 			{
 				if(value.Count!=6)
 				{
-					throw new ArgumentException("Number of point must be 6");
+					//throw new ArgumentException("Number of point must be 6");
 				}
 				points = value;
 			}
