@@ -68,26 +68,24 @@ namespace ADO.NET
             reader.Close();
 
             //Insert 5 new records into Employees table. Fill in the following  fields: LastName, FirstName, BirthDate, HireDate, Address, City, Country, Notes. The Notes field should contain your own name.
+            int insertQuantity = 0;
             command.CommandText= "INSERT INTO Employees(LastName, FirstName, BirthDate, HireDate, Address, City, Country, Notes) VALUES ('Bohdan', 'Romaniuk', '1997-07-23', '2017-11-14', 'Shevchenka st. 78', 'Lviv', 'Ukraine', 'Bohdan');";
-            reader = command.ExecuteReader();
-            reader.Close();
+            insertQuantity += command.ExecuteNonQuery();
             command.CommandText = "INSERT INTO Employees(LastName, FirstName, BirthDate, HireDate, Address, City, Country, Notes) VALUES ('Modest', 'Radomskyi', '1997-11-14', '2017-11-14', 'Bandery st. 8', 'Lviv', 'Ukraine', 'Bohdan');";
-            reader = command.ExecuteReader();
-            reader.Close();
+            insertQuantity += command.ExecuteNonQuery();
             command.CommandText = "INSERT INTO Employees(LastName, FirstName, BirthDate, HireDate, Address, City, Country, Notes) VALUES ('Vlad', 'Buchella', '1998-08-08', '2017-11-14', 'Lubin st. 73', 'Lviv', 'Ukraine', 'Bohdan');";
-            reader = command.ExecuteReader();
-            reader.Close();
+            insertQuantity += command.ExecuteNonQuery();
             command.CommandText = "INSERT INTO Employees(LastName, FirstName, BirthDate, HireDate, Address, City, Country, Notes) VALUES ('Mykola', 'Baranov', '1998-01-25', '2017-11-14', 'Stryiska st. 18', 'Lviv', 'Ukraine', 'Bohdan');";
-            reader = command.ExecuteReader();
-            reader.Close();
+            insertQuantity += command.ExecuteNonQuery();
             command.CommandText = "INSERT INTO Employees(LastName, FirstName, BirthDate, HireDate, Address, City, Country, Notes) VALUES ('Roman', 'Parobiy', '1997-09-14', '2017-11-14', 'Naukova st. 16', 'Lviv', 'Ukraine', 'Bohdan');";
-            reader = command.ExecuteReader();
-            reader.Close();
+            insertQuantity += command.ExecuteNonQuery();
+            Console.WriteLine("\nInserted {0} rows", insertQuantity);
 
             //Delete one of your records
-            command.CommandText = "DELETE FROM Employees WHERE LastName='Vlad' AND LastName='Buchella';";
-            reader = command.ExecuteReader();
-            reader.Close();
+            int deletedQuantity = 0;
+            command.CommandText = "DELETE FROM Employees WHERE LastName='Vlad' AND FirstName='Buchella';";
+            deletedQuantity += command.ExecuteNonQuery();
+            Console.WriteLine("Deleted {0} rows", deletedQuantity);
             connection.Close();
             Console.ReadKey();
         }
