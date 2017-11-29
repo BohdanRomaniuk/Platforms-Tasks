@@ -4,13 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace _7__Entity_Framework__Repository__UnitOfWork.DataTypes
 {
-    public class Driver
+    [Table("Drivers")]
+    public class TaxiDriver
     {
         [Key]
-        public uint Id { get; set; }
+        public int DriverNumber { get; set; }
 
         [MaxLength(50)]
         [Required]
@@ -35,13 +37,12 @@ namespace _7__Entity_Framework__Repository__UnitOfWork.DataTypes
         [Required]
         public double PayCheck { get; set; }
 
-        public Driver()
+        public TaxiDriver()
         {
             PayCheck = 0;
         }
-        public Driver(uint _id, string _surname, string _name, uint _age, string _carNumber, uint _experience, uint _cost, double _pay = 0)
+        public TaxiDriver(string _surname, string _name, uint _age, string _carNumber, uint _experience, uint _cost, double _pay = 0)
         {
-            Id = _id;
             Surname = _surname;
             Name = _name;
             Age = _age;
@@ -53,7 +54,7 @@ namespace _7__Entity_Framework__Repository__UnitOfWork.DataTypes
 
         public override string ToString()
         {
-            return String.Format("{0} {1} {2} {3} {4} {5} {6} {7}", Id, Surname, Name, Age, CarNumber, Experience, CostPerMinute, PayCheck);
+            return String.Format("{0} {1} {2} {3} {4} {5} {6} {7}", DriverNumber, Surname, Name, Age, CarNumber, Experience, CostPerMinute, PayCheck);
         }
     }
 }

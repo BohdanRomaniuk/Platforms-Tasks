@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:_7__Entity_Framework__Repository__UnitOfWork"
         mc:Ignorable="d"
-        Title="Водій Таксі" Height="420" Width="730" Icon="taxi-icon.ico" Name="MainTaxiDriverWindow">
+        Title="Водій Таксі" Height="420" Width="730" Name="MainTaxiDriverWindow" Icon="taxi-icon.ico">
     <Grid Margin="10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />

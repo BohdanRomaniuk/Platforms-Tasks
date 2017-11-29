@@ -4,17 +4,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace _7__Entity_Framework__Repository__UnitOfWork.DataTypes
 {
+    [Table("Orders")]
     public class TaxiOrder
     {
-        public uint Id { get; set; }
+        [Key]
+        public int OrderNumber { get; set; }
+
+        public TaxiClient ClientId { get; set; }
         
-        public uint ClientId { get; set; }
+        public TaxiDriver DriverId { get; set; }
         
-        public uint DriverId { get; set; }
-        
+        [Required]
         public DateTime ArriveTime { get; set; }
 
         [MaxLength(200)]
@@ -26,10 +30,10 @@ namespace _7__Entity_Framework__Repository__UnitOfWork.DataTypes
         public string Destination { get; set; }
 
         [Required]
-        public uint RoadTime { get; set; }
+        public int RoadTime { get; set; }
 
         [Required]
-        public uint Cost { get; set; }
+        public int Cost { get; set; }
 
         [Required]
         public bool IsDone { get; set; }
@@ -37,9 +41,9 @@ namespace _7__Entity_Framework__Repository__UnitOfWork.DataTypes
         public TaxiOrder()
         {
         }
-        public TaxiOrder(uint _id, uint _clientId, uint _driverId, DateTime _arrive, string _dispatch, string _destination, uint _roadTime, uint _cost = 0, bool _isDone = false)
+        public TaxiOrder(int _id,  TaxiClient _clientId, TaxiDriver _driverId, DateTime _arrive, string _dispatch, string _destination, int _roadTime, int _cost = 0, bool _isDone = false)
         {
-            Id = _id;
+            OrderNumber = _id;
             ClientId = _clientId;
             DriverId = _driverId;
             ArriveTime = _arrive;
@@ -51,7 +55,7 @@ namespace _7__Entity_Framework__Repository__UnitOfWork.DataTypes
         }
         public override string ToString()
         {
-            return String.Format("{0} {1} {2} {3} {4} {5} {6} {7} {8}", Id, ClientId, DriverId, ArriveTime.ToString("yyyy-MM-dd_HH:mm"), Dispatch, Destination, RoadTime, Cost, IsDone);
+            return String.Format("{0} {1} {2} {3} {4} {5} {6} {7} {8}", OrderNumber, ClientId, DriverId, ArriveTime.ToString("yyyy-MM-dd_HH:mm"), Dispatch, Destination, RoadTime, Cost, IsDone);
         }
     }
 }

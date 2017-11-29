@@ -23,5 +23,15 @@ namespace _7__Entity_Framework__Repository__UnitOfWork
         {
             InitializeComponent();
         }
+
+        private void startRoad_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void endRoad_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
