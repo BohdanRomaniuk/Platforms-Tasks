@@ -57,7 +57,7 @@ namespace _7__Entity_Framework__Repository__UnitOfWork
             dispatcherTimer.Stop();
             currentOrder.RoadTime = (int)elapsedTime.TotalSeconds;
             currentOrder.IsDone = true;
-            currentOrder.Cost = (int)currentOrder.DriverId.CostPerMinute * currentOrder.RoadTime / 60;
+            currentOrder.Cost = currentOrder.DriverId.CostPerMinute * currentOrder.RoadTime / 60;
             roadCostDesc.Content = currentOrder.Cost + " грн";
             MessageBox.Show(String.Format("Вітаємо {0} з вас {1} грн!!!", currentOrder.ClientId.Name, currentOrder.Cost), "Квитанція");
             foreach (Window item in Application.Current.Windows)

@@ -1,9 +1,7 @@
+using System.Data.Entity;
+
 namespace _7__Entity_Framework__Repository__UnitOfWork.DataTypes
 {
-    using System;
-    using System.Data.Entity;
-    using System.Linq;
-
     public class DriverContext : DbContext
     {
         public DbSet<TaxiDriver> Drivers { get; set; }

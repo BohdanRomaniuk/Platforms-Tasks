@@ -28,10 +28,10 @@ namespace _7__Entity_Framework__Repository__UnitOfWork
             //AddClientsInfo();
             //AddDriversInfo();
             //AddOrdersInfo();
-            using (DriverContext content = new DriverContext())
-            {
-                content.Database.Delete();
-            }
+            //using (DriverContext content = new DriverContext())
+            //{
+            //    content.Database.Delete();
+            //}
         }
         private void AddClientsInfo()
         {
@@ -85,12 +85,24 @@ namespace _7__Entity_Framework__Repository__UnitOfWork
         {
             using (DriverContext content = new DriverContext())
             {
-                //UpdateOrderInfoINDB
-                currentDriver.PayCheck += orderToUpdate.Cost;
-                driverInfoCostDetails.Content = currentDriver.PayCheck + " грн";
-                //ShowOrdersInListView
                 var clients = (from client in content.Clients
                                select client).ToList();
+                var drivers = (from driver in content.Drivers
+                               select driver).ToList();
+
+                //UpdateOrderInfoINDB
+                var toUpdate = content.Orders.SingleOrDefault(s => s.OrderNumber == orderToUpdate.OrderNumber);
+                if(toUpdate!=null)
+                {
+                    toUpdate.IsDone = true;
+                    toUpdate.RoadTime = orderToUpdate.RoadTime;
+                    toUpdate.Cost = orderToUpdate.Cost;
+                    content.SaveChanges();
+                }
+                currentDriver.PayCheck += orderToUpdate.Cost;
+                driverInfoCostDetails.Content = currentDriver.PayCheck + " грн";
+
+                //ShowOrdersInListView 
                 var currentOrders = (from order in content.Orders
                                      where order.DriverId.DriverNumber == currentDriver.DriverNumber
                                      select order).ToList();
@@ -125,6 +137,7 @@ namespace _7__Entity_Framework__Repository__UnitOfWork
                 driverInfoExpDetails.Content = currentDriver.Experience;
                 driverInfoCostDetails.Content = currentDriver.PayCheck + " грн";
                 driverInfoCostPerMinDetails.Content = currentDriver.CostPerMinute;
+
                 //ShowOrdersInListView
                 var clients = (from client in content.Clients
                                select client).ToList();
@@ -141,7 +154,16 @@ namespace _7__Entity_Framework__Repository__UnitOfWork
 
         private void endOfWork_Click(object sender, RoutedEventArgs e)
         {
-            //Update driver and orders info inDB
+            //Update driver info in DB
+            using (DriverContext content = new DriverContext())
+            {
+                var toUpdate = content.Drivers.SingleOrDefault(s => s.DriverNumber == currentDriver.DriverNumber);
+                if(toUpdate!=null)
+                {
+                    toUpdate.PayCheck = currentDriver.PayCheck;
+                    content.SaveChanges();
+                }
+            }
             MessageBox.Show(String.Format("Дякуюємо за роботу {0}!", currentDriver.Name), "Допобачення");
             Close();
         }
