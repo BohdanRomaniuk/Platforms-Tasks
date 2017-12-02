@@ -23,16 +23,16 @@ namespace _7__Entity_Framework__Repository__UnitOfWork.DataTypes
         public string Name { get; set; }
 
         [Required]
-        public uint Age { get; set; }
+        public int Age { get; set; }
 
         [Required]
         public string CarNumber { get; set; }
 
         [Required]
-        public uint Experience { get; set; }
+        public int Experience { get; set; }
 
         [Required]
-        public uint CostPerMinute { get; set; }
+        public int CostPerMinute { get; set; }
 
         [Required]
         public double PayCheck { get; set; }
@@ -41,7 +41,7 @@ namespace _7__Entity_Framework__Repository__UnitOfWork.DataTypes
         {
             PayCheck = 0;
         }
-        public TaxiDriver(string _surname, string _name, uint _age, string _carNumber, uint _experience, uint _cost, double _pay = 0)
+        public TaxiDriver(string _surname, string _name, int _age, string _carNumber, int _experience, int _cost, double _pay = 0)
         {
             Surname = _surname;
             Name = _name;

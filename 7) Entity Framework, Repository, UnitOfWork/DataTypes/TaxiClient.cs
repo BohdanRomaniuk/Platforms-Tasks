@@ -26,9 +26,8 @@ namespace _7__Entity_Framework__Repository__UnitOfWork.DataTypes
         public TaxiClient()
         {
         }
-        public TaxiClient(int _id, string _name, string _phoneNumber)
+        public TaxiClient(string _name, string _phoneNumber)
         {
-            ClientNumber = _id;
             Name = _name;
             PhoneNumber = _phoneNumber;
         }

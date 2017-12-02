@@ -41,9 +41,8 @@ namespace _7__Entity_Framework__Repository__UnitOfWork.DataTypes
         public TaxiOrder()
         {
         }
-        public TaxiOrder(int _id,  TaxiClient _clientId, TaxiDriver _driverId, DateTime _arrive, string _dispatch, string _destination, int _roadTime, int _cost = 0, bool _isDone = false)
+        public TaxiOrder(TaxiClient _clientId, TaxiDriver _driverId, DateTime _arrive, string _dispatch, string _destination, int _roadTime, int _cost = 0, bool _isDone = false)
         {
-            OrderNumber = _id;
             ClientId = _clientId;
             DriverId = _driverId;
             ArriveTime = _arrive;
