@@ -1,17 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Entity_Framework__Repository__UnitOfWork.DataTypes;
 using Entity_Framework__Repository__UnitOfWork.UnitOfWorkNS;
 using System.ComponentModel;
@@ -75,11 +65,18 @@ namespace Entity_Framework__Repository__UnitOfWork
         {
             using (var cont = new DriverContext())
             {
-                var vlad = (from elem in cont.Clients where elem.ClientId == 1 select elem).First();
+                var modest = (from elem in cont.Clients where elem.ClientId == 1 select elem).First();
+                var vlad = (from elem in cont.Clients where elem.ClientId == 2 select elem).First();
+                var bohdan = (from elem in cont.Clients where elem.ClientId == 5 select elem).First();
+                
                 var roman = (from elem in cont.Drivers where elem.DriverId == 1 select elem).First();
+                var colia = (from elem in cont.Drivers where elem.DriverId == 2 select elem).First();
 
-                var first = new TaxiOrder(vlad, roman, Convert.ToDateTime("2017-10-19 18:00"), "Унівеsка,1", "Гsцька,142", 19, 15, true);
-                cont.Orders.Add(first);
+                cont.Orders.Add(new TaxiOrder(vlad, roman, Convert.ToDateTime("2017-12-07 18:00"), "Університетська,1", "Галицька,142", 19, 15, true));
+                cont.Orders.Add(new TaxiOrder(modest, roman, Convert.ToDateTime("2017-12-07 19:00"), "Наукова,178", "Пасічна,89", 0, 0, false));
+                cont.Orders.Add(new TaxiOrder(bohdan, roman, Convert.ToDateTime("2017-12-07 15:00"), "Шевченка,70", "Зелена,34", 0, 0, false));
+                cont.Orders.Add(new TaxiOrder(modest, colia, Convert.ToDateTime("2017-12-07 14:00"), "Стрийська,17", "Зелена,3", 0, 0, false));
+                cont.Orders.Add(new TaxiOrder(bohdan, colia, Convert.ToDateTime("2017-12-07 18:00"), "Стрийська,142", "Костюшка,2", 0, 0, false));
                 cont.SaveChanges();
             }
         }
@@ -90,7 +87,7 @@ namespace Entity_Framework__Repository__UnitOfWork
             //{
             //    //UpdateOrderInfoINDB //Eager Loading
             //    var toUpdate = content.Orders.Include("Client").Include("Driver").SingleOrDefault(s => s.OrderId == orderToUpdate.OrderId);
-            //    if(toUpdate!=null)
+            //    if (toUpdate != null)
             //    {
             //        toUpdate.IsDone = true;
             //        toUpdate.RoadTime = orderToUpdate.RoadTime;
@@ -119,7 +116,7 @@ namespace Entity_Framework__Repository__UnitOfWork
                 driverInfoCostDetails.Content = currentDriver.PayCheck + " грн";
 
                 //ShowOrdersInListView //Eager Loading
-                var currentOrders = content.Orders.Get(includeProperties: "Client");
+                var currentOrders = content.Orders.Get(s => s.Driver.DriverId == currentDriver.DriverId, includeProperties: "Client");
                 orders.Items.Clear();
                 foreach (var order in currentOrders)
                 {
@@ -173,7 +170,7 @@ namespace Entity_Framework__Repository__UnitOfWork
                 driverInfoCostDetails.Content = currentDriver.PayCheck + " грн";
                 driverInfoCostPerMinDetails.Content = currentDriver.CostPerMinute;
 
-                var currentOrders = content.Orders.Get(includeProperties: "Client");
+                var currentOrders = content.Orders.Get(s => s.Driver.DriverId == currentDriver.DriverId, includeProperties: "Client");
 
                 orders.Items.Clear();
                 foreach (var order in currentOrders)
@@ -197,8 +194,11 @@ namespace Entity_Framework__Repository__UnitOfWork
             //}
             using (UnitOfWork content = new UnitOfWork())
             {
-                content.Drivers.Update(currentDriver);
-                content.Save();
+                if (currentDriver != null)
+                {
+                    content.Drivers.Update(currentDriver);
+                    content.Save();
+                }
             }
         }
 
