@@ -1,6 +1,6 @@
 using System.Data.Entity;
 
-namespace _7__Entity_Framework__Repository__UnitOfWork.DataTypes
+namespace Entity_Framework__Repository__UnitOfWork.DataTypes
 {
     public class DriverContext : DbContext
     {

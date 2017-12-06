@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-
-namespace _7__Entity_Framework__Repository__UnitOfWork.DataTypes
+namespace Entity_Framework__Repository__UnitOfWork.DataTypes
 {
     [Table("Clients")]
     public class TaxiClient

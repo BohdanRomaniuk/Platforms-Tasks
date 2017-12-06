@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace _7__Entity_Framework__Repository__UnitOfWork
+namespace Entity_Framework__Repository__UnitOfWork
 {
     /// <summary>
     /// Interaction logic for App.xaml
