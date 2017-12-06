@@ -12,11 +12,11 @@ namespace _7__Entity_Framework__Repository__UnitOfWork.DataTypes
     public class TaxiOrder
     {
         [Key]
-        public int OrderNumber { get; set; }
+        public int OrderId { get; set; }
 
-        public TaxiClient ClientId { get; set; }
+        public TaxiClient Client { get; set; }
         
-        public TaxiDriver DriverId { get; set; }
+        public TaxiDriver Driver { get; set; }
         
         [Required]
         public DateTime ArriveTime { get; set; }
@@ -41,10 +41,10 @@ namespace _7__Entity_Framework__Repository__UnitOfWork.DataTypes
         public TaxiOrder()
         {
         }
-        public TaxiOrder(TaxiClient _clientId, TaxiDriver _driverId, DateTime _arrive, string _dispatch, string _destination, int _roadTime, int _cost = 0, bool _isDone = false)
+        public TaxiOrder(TaxiClient _client, TaxiDriver _driver, DateTime _arrive, string _dispatch, string _destination, int _roadTime, int _cost = 0, bool _isDone = false)
         {
-            ClientId = _clientId;
-            DriverId = _driverId;
+            Client = _client;
+            Driver = _driver;
             ArriveTime = _arrive;
             Dispatch = _dispatch;
             Destination = _destination;
@@ -54,7 +54,7 @@ namespace _7__Entity_Framework__Repository__UnitOfWork.DataTypes
         }
         public override string ToString()
         {
-            return String.Format("{0} {1} {2} {3} {4} {5} {6} {7} {8}", OrderNumber, ClientId, DriverId, ArriveTime.ToString("yyyy-MM-dd_HH:mm"), Dispatch, Destination, RoadTime, Cost, IsDone);
+            return String.Format("{0} {1} {2} {3} {4} {5} {6} {7} {8}", OrderId, Client, Driver, ArriveTime.ToString("yyyy-MM-dd_HH:mm"), Dispatch, Destination, RoadTime, Cost, IsDone);
         }
     }
 }

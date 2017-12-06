@@ -13,7 +13,7 @@ namespace _7__Entity_Framework__Repository__UnitOfWork.DataTypes
     public class TaxiClient
     {
         [Key]
-        public int ClientNumber { get; set; }
+        public int ClientId { get; set; }
         
         [MaxLength(50)]
         [Required]
@@ -33,7 +33,7 @@ namespace _7__Entity_Framework__Repository__UnitOfWork.DataTypes
         }
         public override string ToString()
         {
-            return String.Format("{0} {1} {2}", ClientNumber, Name, PhoneNumber);
+            return String.Format("{0} {1} {2}", ClientId, Name, PhoneNumber);
         }
     }
 }

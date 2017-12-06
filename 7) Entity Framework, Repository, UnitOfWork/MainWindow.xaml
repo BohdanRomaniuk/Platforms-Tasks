@@ -90,8 +90,8 @@
                 <ListView x:Name="orders" HorizontalAlignment="Left" Margin="0,0,0,0" PreviewMouseLeftButtonUp="orders_Click">
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Header="Ім'я клієнта" Width="{Binding ElementName=dummywidth1, Path=ActualWidth}" DisplayMemberBinding="{Binding ClientId.Name}" />
-                            <GridViewColumn Header="Моб. тел." Width="{Binding ElementName=dummywidth2, Path=ActualWidth}" DisplayMemberBinding="{Binding ClientId.PhoneNumber}" />
+                            <GridViewColumn Header="Ім'я клієнта" Width="{Binding ElementName=dummywidth1, Path=ActualWidth}" DisplayMemberBinding="{Binding Client.Name}" />
+                            <GridViewColumn Header="Моб. тел." Width="{Binding ElementName=dummywidth2, Path=ActualWidth}" DisplayMemberBinding="{Binding Client.PhoneNumber}" />
                             <GridViewColumn Header="Пункт відправлення" Width="{Binding ElementName=dummywidth3, Path=ActualWidth}" DisplayMemberBinding="{Binding Dispatch}" />
                             <GridViewColumn Header="Пункт призначення" Width="{Binding ElementName=dummywidth4, Path=ActualWidth}" DisplayMemberBinding="{Binding Destination}" />
                             <GridViewColumn Header="Час відправлення" Width="{Binding ElementName=dummywidth5, Path=ActualWidth}" DisplayMemberBinding="{Binding ArriveTime}" />

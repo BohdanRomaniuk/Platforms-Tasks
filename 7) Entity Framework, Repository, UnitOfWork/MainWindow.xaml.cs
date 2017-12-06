@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using _7__Entity_Framework__Repository__UnitOfWork.DataTypes;
+using System.ComponentModel;
 
 namespace _7__Entity_Framework__Repository__UnitOfWork
 {
@@ -25,6 +26,7 @@ namespace _7__Entity_Framework__Repository__UnitOfWork
         public MainWindow()
         {
             InitializeComponent();
+            Closing += endOfWork_Close;
             //AddClientsInfo();
             //AddDriversInfo();
             //AddOrdersInfo();
@@ -72,8 +74,8 @@ namespace _7__Entity_Framework__Repository__UnitOfWork
         {
             using (var cont = new DriverContext())
             {
-                var vlad = (from elem in cont.Clients where elem.ClientNumber == 1 select elem).First();
-                var roman = (from elem in cont.Drivers where elem.DriverNumber == 1 select elem).First();
+                var vlad = (from elem in cont.Clients where elem.ClientId == 1 select elem).First();
+                var roman = (from elem in cont.Drivers where elem.DriverId == 1 select elem).First();
 
                 var first = new TaxiOrder(vlad, roman, Convert.ToDateTime("2017-10-19 18:00"), "Унівеsка,1", "Гsцька,142", 19, 15, true);
                 cont.Orders.Add(first);
@@ -85,13 +87,8 @@ namespace _7__Entity_Framework__Repository__UnitOfWork
         {
             using (DriverContext content = new DriverContext())
             {
-                var clients = (from client in content.Clients
-                               select client).ToList();
-                var drivers = (from driver in content.Drivers
-                               select driver).ToList();
-
-                //UpdateOrderInfoINDB
-                var toUpdate = content.Orders.SingleOrDefault(s => s.OrderNumber == orderToUpdate.OrderNumber);
+                //UpdateOrderInfoINDB //Eager Loading
+                var toUpdate = content.Orders.Include("Client").Include("Driver").SingleOrDefault(s => s.OrderId == orderToUpdate.OrderId);
                 if(toUpdate!=null)
                 {
                     toUpdate.IsDone = true;
@@ -102,10 +99,10 @@ namespace _7__Entity_Framework__Repository__UnitOfWork
                 currentDriver.PayCheck += orderToUpdate.Cost;
                 driverInfoCostDetails.Content = currentDriver.PayCheck + " грн";
 
-                //ShowOrdersInListView 
-                var currentOrders = (from order in content.Orders
-                                     where order.DriverId.DriverNumber == currentDriver.DriverNumber
-                                     select order).ToList();
+                //ShowOrdersInListView //Eager Loading
+                var currentOrders = from order in content.Orders.Include("Client").Include("Driver")
+                                    where order.Driver.DriverId == currentDriver.DriverId
+                                    select order;
                 orders.Items.Clear();
                 foreach (var order in currentOrders)
                 {
@@ -130,7 +127,7 @@ namespace _7__Entity_Framework__Repository__UnitOfWork
             {
                 currentDriver = (from driver in content.Drivers
                                 where driver.Surname==driverSurName.Text && driver.Name==driverUserName.Text
-                                select driver).First();
+                                select driver).FirstOrDefault();
                 driverInfoSurnameNameDetails.Content = currentDriver.Surname + " " + currentDriver.Name;
                 driverInfoAgeDetails.Content = currentDriver.Age;
                 driverInfoCarDetails.Content = currentDriver.CarNumber;
@@ -138,12 +135,11 @@ namespace _7__Entity_Framework__Repository__UnitOfWork
                 driverInfoCostDetails.Content = currentDriver.PayCheck + " грн";
                 driverInfoCostPerMinDetails.Content = currentDriver.CostPerMinute;
 
-                //ShowOrdersInListView
-                var clients = (from client in content.Clients
-                               select client).ToList();
-                var currentOrders = (from order in content.Orders
-                                     where order.DriverId.DriverNumber == currentDriver.DriverNumber
-                                     select order).ToList();
+                //Eager Loading
+                var currentOrders = from order in content.Orders.Include("Client")
+                                    where order.Driver.DriverId == currentDriver.DriverId
+                                    select order;
+
                 orders.Items.Clear();
                 foreach (var order in currentOrders)
                 {
@@ -152,20 +148,30 @@ namespace _7__Entity_Framework__Repository__UnitOfWork
             }
         }
 
-        private void endOfWork_Click(object sender, RoutedEventArgs e)
+        private void updateDriverInfo()
         {
             //Update driver info in DB
             using (DriverContext content = new DriverContext())
             {
-                var toUpdate = content.Drivers.SingleOrDefault(s => s.DriverNumber == currentDriver.DriverNumber);
-                if(toUpdate!=null)
+                var toUpdate = content.Drivers.SingleOrDefault(s => s.DriverId == currentDriver.DriverId);
+                if (toUpdate != null)
                 {
                     toUpdate.PayCheck = currentDriver.PayCheck;
                     content.SaveChanges();
                 }
             }
-            MessageBox.Show(String.Format("Дякуюємо за роботу {0}!", currentDriver.Name), "Допобачення");
+        }
+
+        private void endOfWork_Click(object sender, RoutedEventArgs e)
+        {
+            updateDriverInfo();
             Close();
+        }
+
+        private void endOfWork_Close(object sender, CancelEventArgs e)
+        {
+            updateDriverInfo();
+            MessageBox.Show(String.Format("Дякуюємо за роботу {0}!", currentDriver.Name), "Допобачення");
         }
     }
 }

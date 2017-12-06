@@ -12,7 +12,7 @@ namespace _7__Entity_Framework__Repository__UnitOfWork.DataTypes
     public class TaxiDriver
     {
         [Key]
-        public int DriverNumber { get; set; }
+        public int DriverId { get; set; }
 
         [MaxLength(50)]
         [Required]
@@ -54,7 +54,7 @@ namespace _7__Entity_Framework__Repository__UnitOfWork.DataTypes
 
         public override string ToString()
         {
-            return String.Format("{0} {1} {2} {3} {4} {5} {6} {7}", DriverNumber, Surname, Name, Age, CarNumber, Experience, CostPerMinute, PayCheck);
+            return String.Format("{0} {1} {2} {3} {4} {5} {6} {7}", DriverId, Surname, Name, Age, CarNumber, Experience, CostPerMinute, PayCheck);
         }
     }
 }
